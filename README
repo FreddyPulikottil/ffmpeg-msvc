@@ -1,3 +1,10 @@
 This is my attempt to enable building ffmpeg on visual studio and other build environments eventually, I dont expect it to be used widely maybe i will be the only user.
 I am continuing the work done already to build ffmpeg 0.6 on VS. The documentation is the same as what i inherited from the previous group and i am retaining the same
 licence terms as of now, i would like to move to a BSD 3 clause licence eventually, by removing all the gpl and lgpl code.
+
+1.go to http://yasm.tortall.net/Download.html
+2.download Win32 vs2010.zip or Win64 vs2010.zip
+3.Extract the contents and copy the vsyasm.props, vsyasm.xml and vsyasm.targets to C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\BuildCustomizations
+4.Open the sln file from cloneDirOf<ffmpeg-msvc>\vcproj
+5.if the libavformat does not load click reload
+6.Build solution, the build might not be successful in the first try keep building until all libs are built, this problem will be tackled later where the build fails in the first try
