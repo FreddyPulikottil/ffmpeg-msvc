@@ -51,39 +51,40 @@ E =  1.4142856598e+00, /* 99/70     = 0x3fb50750 */
 F =  1.6071428061e+00, /* 45/28     = 0x3fcdb6db */
 G =  3.5714286566e-01; /* 5/14      = 0x3eb6db6e */
 
-float
-cbrtf(float x)
-{
-	float r,s,t;
-	int32_t hx;
-	u_int32_t sign;
-	u_int32_t high;
-
-	GET_FLOAT_WORD(hx,x);
-	sign=hx&0x80000000; 		/* sign= sign(x) */
-	hx  ^=sign;
-	if(hx>=0x7f800000) return(x+x); /* cbrt(NaN,INF) is itself */
-	if(hx==0)
-	    return(x);		/* cbrt(0) is itself */
-
-	SET_FLOAT_WORD(x,hx);	/* x <- |x| */
-    /* rough cbrt to 5 bits */
-	if(hx<0x00800000) 		/* subnormal number */
-	  {SET_FLOAT_WORD(t,0x4b800000); /* set t= 2**24 */
-	   t*=x; GET_FLOAT_WORD(high,t); SET_FLOAT_WORD(t,high/3+B2);
-	  }
-	else
-	  SET_FLOAT_WORD(t,hx/3+B1);
-
-
-    /* new cbrt to 23 bits */
-	r=t*t/x;
-	s=C+r*t;
-	t*=G+F/(s+E+D/s);
-
-    /* retore the sign bit */
-	GET_FLOAT_WORD(high,t);
-	SET_FLOAT_WORD(t,high|sign);
-	return(t);
-}
+//commenting this out as vs 2013 provides a default implementation
+//float
+//cbrtf(float x)
+//{
+//	float r,s,t;
+//	int32_t hx;
+//	u_int32_t sign;
+//	u_int32_t high;
+//
+//	GET_FLOAT_WORD(hx,x);
+//	sign=hx&0x80000000; 		/* sign= sign(x) */
+//	hx  ^=sign;
+//	if(hx>=0x7f800000) return(x+x); /* cbrt(NaN,INF) is itself */
+//	if(hx==0)
+//	    return(x);		/* cbrt(0) is itself */
+//
+//	SET_FLOAT_WORD(x,hx);	/* x <- |x| */
+//    /* rough cbrt to 5 bits */
+//	if(hx<0x00800000) 		/* subnormal number */
+//	  {SET_FLOAT_WORD(t,0x4b800000); /* set t= 2**24 */
+//	   t*=x; GET_FLOAT_WORD(high,t); SET_FLOAT_WORD(t,high/3+B2);
+//	  }
+//	else
+//	  SET_FLOAT_WORD(t,hx/3+B1);
+//
+//
+//    /* new cbrt to 23 bits */
+//	r=t*t/x;
+//	s=C+r*t;
+//	t*=G+F/(s+E+D/s);
+//
+//    /* retore the sign bit */
+//	GET_FLOAT_WORD(high,t);
+//	SET_FLOAT_WORD(t,high|sign);
+//	return(t);
+//}
 

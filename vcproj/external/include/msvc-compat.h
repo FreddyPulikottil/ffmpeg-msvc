@@ -22,7 +22,7 @@
 #define isnan _isnan
 #define strcasecmp(string1, string2) _stricmp(string1, string2)
 
-float cbrtf(float x);
+//float cbrtf(float x);//commenting out as vs 2013 provides a default impl
 
 #endif /* _MSC_VER */
 

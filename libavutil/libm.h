@@ -43,16 +43,17 @@
 #endif /* HAVE_EXP2F */
 
 #ifdef _MSC_VER
-static double rint(double x)
-{
-	return floor(x+.5);
-}
-
-static int isinf(double d)
-{
-	int fpc = _fpclass(d);
-	return fpc == _FPCLASS_NINF || fpc == _FPCLASS_PINF;
-}
+//commenting out as vs 2013 already provides a default implementation of rint and isinf
+//static double rint(double x)
+//{
+//	return floor(x+.5);
+//}
+//
+//static int isinf(double d)
+//{
+//	int fpc = _fpclass(d);
+//	return fpc == _FPCLASS_NINF || fpc == _FPCLASS_PINF;
+//}
 #endif
 
 #if !HAVE_LLRINT
