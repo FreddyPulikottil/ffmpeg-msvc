@@ -1,12 +1,3 @@
-FFmpeg README
--------------
-
-1) Documentation
-----------------
-
-* Read the documentation in the doc/ directory.
-
-2) Licensing
-------------
-
-* See the LICENSE file.
+This is my attempt to enable building ffmpeg on visual studio and other build environments eventually, I dont expect it to be used widely maybe i will be the only user.
+I am continuing the work done already to build ffmpeg 0.6 on VS. The documentation is the same as what i inherited from the previous group and i am retaining the same
+licence terms as of now, i would like to move to a BSD 3 clause licence eventually, by removing all the gpl and lgpl code.
