@@ -28,69 +28,34 @@
 #include "config.h"
 #include "libavutil/attributes.h"
 
-#define bswap_16 bswap_16
-static av_always_inline av_const uint16_t bswap_16(uint16_t x)
+#if HAVE_INLINE_ASM
+
+#if !AV_GCC_VERSION_AT_LEAST(4,1)
+#define av_bswap16 av_bswap16
+static av_always_inline av_const unsigned av_bswap16(unsigned x)
 {
-
-#ifndef _MSC_VER
-	__asm__("rorw $8, %0" : "+r"(x));
-#else
-	__asm
-	{
-		mov ax, x
-		ror ax, 8
-		mov x, ax
-	}
-
-	//x= (x>>8) | (x<<8);
-#endif
+    __asm__("rorw $8, %w0" : "+r"(x));
     return x;
 }
+#endif /* !AV_GCC_VERSION_AT_LEAST(4,1) */
 
-#define bswap_32 bswap_32
-static av_always_inline av_const uint32_t bswap_32(uint32_t x)
+#if !AV_GCC_VERSION_AT_LEAST(4,5)
+#define av_bswap32 av_bswap32
+static av_always_inline av_const uint32_t av_bswap32(uint32_t x)
 {
-#ifndef _MSC_VER
-#if HAVE_BSWAP
     __asm__("bswap   %0" : "+r" (x));
-#else
-    __asm__("rorw    $8,  %w0 \n\t"
-            "rorl    $16, %0  \n\t"
-            "rorw    $8,  %w0"
-            : "+r"(x));
-#endif
-#else
-	__asm
-	{
-		mov eax, x
-		bswap eax
-		mov x, eax
-	}
-
-	//x= ((x<<8)&0xFF00FF00) | ((x>>8)&0x00FF00FF);
-	//x= (x>>16) | (x<<16);
-#endif
     return x;
 }
 
 #if ARCH_X86_64
-#define bswap_64 bswap_64
-static inline uint64_t av_const bswap_64(uint64_t x)
+#define av_bswap64 av_bswap64
+static inline uint64_t av_const av_bswap64(uint64_t x)
 {
-#ifndef _MSC_VER
-	__asm__("bswap  %0": "=r" (x) : "0" (x));
-	return x;
-#else
-	union {
-		uint64_t ll;
-		uint32_t l[2];
-	} w, r;
-	w.ll = x;
-	r.l[0] = bswap_32 (w.l[1]);
-	r.l[1] = bswap_32 (w.l[0]);
-	return r.ll;
-#endif
+    __asm__("bswap  %0": "=r" (x) : "0" (x));
+    return x;
 }
 #endif
+#endif /* !AV_GCC_VERSION_AT_LEAST(4,5) */
 
+#endif /* HAVE_INLINE_ASM */
 #endif /* AVUTIL_X86_BSWAP_H */
