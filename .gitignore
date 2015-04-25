@@ -8,3 +8,8 @@
 vcproj/external/SDL-1.2.14/VisualC/SDL/Debug/SDL.obj
 *.tlog
 *.obj
+*.exe
+*.opensdf
+*.idb
+*.sdf
+*.jmconfig
