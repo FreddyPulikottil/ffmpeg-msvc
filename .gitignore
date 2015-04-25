@@ -1,0 +1,10 @@
+*.dll
+*.suo
+*.exp
+*.ilk
+*.lib
+*.pdb
+*.log
+vcproj/external/SDL-1.2.14/VisualC/SDL/Debug/SDL.obj
+*.tlog
+*.obj
