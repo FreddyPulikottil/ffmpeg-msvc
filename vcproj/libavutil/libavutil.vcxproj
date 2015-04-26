@@ -70,7 +70,7 @@
     <ClCompile Include="..\..\libavutil\tree.c" />
     <ClCompile Include="..\..\libavutil\twofish.c" />
     <ClCompile Include="..\..\libavutil\utils.c" />
-    <ClCompile Include="..\..\libavutil\x86\cpu.c" />
+    <ClCompile Include="..\..\libavutil\x86\cpu_x86.c" />
     <ClCompile Include="..\..\libavutil\x86\float_dsp_init.c" />
     <ClCompile Include="..\..\libavutil\x86\lls_init.c" />
     <ClCompile Include="..\..\libavutil\x86\pixelutils_init.c" />
@@ -134,7 +134,7 @@
     <ClInclude Include="..\..\libavutil\timecode.h" />
     <ClInclude Include="..\..\libavutil\tree.h" />
     <ClInclude Include="..\..\libavutil\twofish.h" />
-    <ClInclude Include="..\..\libavutil\x86\cpu.h" />
+    <ClInclude Include="..\..\libavutil\x86\cpu_x86.h" />
     <ClInclude Include="..\..\libavutil\x86\pixelutils.h" />
     <ClInclude Include="..\..\libavutil\xga_font_data.h" />
     <ClInclude Include="..\..\libavutil\xtea.h" />
@@ -188,7 +188,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\FJose\Source\Repos\ffmpeg-msvc;C:\Users\FJose\Source\Repos\ffmpeg-msvc\libavutil\configs\Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\FJose\Source\Repos\ffmpeg-msvc;C:\Users\FJose\Source\Repos\ffmpeg-msvc\libavutil\configs\Win32;C:\Users\FJose\Source\Repos\ffmpeg-msvc\vcproj\external\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>

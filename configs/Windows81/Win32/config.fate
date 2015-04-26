@@ -1,0 +1,1 @@
+config:x86:x86_32:generic:win32:Microsoft (R) C/C++ Optimizing Compiler Version 18.00.30501 for x86:--toolchain=msvc --disable-dxva2 --arch=x86 --enable-shared --enable-cross-compile --target-os=win32 --extra-cflags='-MD -DWINAPI_FAMILY=WINAPI_FAMILY_PC_APP -D_WIN32_WINNT=0x0603' --extra-ldflags='-winmd -appcontainer' --prefix=../../../Build/Windows81/Win32
