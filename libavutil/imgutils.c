@@ -49,7 +49,7 @@ void av_image_fill_max_pixsteps(int max_pixsteps[4], int max_pixstep_comps[4],
     }
 }
 
-static inline
+static __inline
 int image_get_linesize(int width, int plane,
                        int max_step, int max_step_comp,
                        const AVPixFmtDescriptor *desc)
