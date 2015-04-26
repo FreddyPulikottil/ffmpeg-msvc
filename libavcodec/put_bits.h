@@ -57,7 +57,7 @@ typedef struct PutBitContext {
  * @param buffer the buffer where to put bits
  * @param buffer_size the size in bytes of buffer
  */
-static inline void init_put_bits(PutBitContext *s, uint8_t *buffer, int buffer_size)
+static __inline void init_put_bits(PutBitContext *s, uint8_t *buffer, int buffer_size)
 {
     if(buffer_size < 0) {
         buffer_size = 0;
@@ -81,7 +81,7 @@ static inline void init_put_bits(PutBitContext *s, uint8_t *buffer, int buffer_s
 /**
  * Returns the total number of bits written to the bitstream.
  */
-static inline int put_bits_count(PutBitContext *s)
+static __inline int put_bits_count(PutBitContext *s)
 {
 #ifdef ALT_BITSTREAM_WRITER
     return s->index;
@@ -93,7 +93,7 @@ static inline int put_bits_count(PutBitContext *s)
 /**
  * Pads the end of the output stream with zeros.
  */
-static inline void flush_put_bits(PutBitContext *s)
+static __inline void flush_put_bits(PutBitContext *s)
 {
 #ifdef ALT_BITSTREAM_WRITER
     align_put_bits(s);
@@ -146,7 +146,7 @@ void ff_copy_bits(PutBitContext *pb, const uint8_t *src, int length);
  * Writes up to 31 bits into a bitstream.
  * Use put_bits32 to write 32 bits.
  */
-static inline void put_bits(PutBitContext *s, int n, unsigned int value)
+static __inline void put_bits(PutBitContext *s, int n, unsigned int value)
 #ifndef ALT_BITSTREAM_WRITER
 {
     unsigned int bit_buf;
@@ -262,7 +262,7 @@ static inline void put_bits(PutBitContext *s, int n, unsigned int value)
 }
 #endif
 
-static inline void put_sbits(PutBitContext *pb, int n, int32_t value)
+static __inline void put_sbits(PutBitContext *pb, int n, int32_t value)
 {
     assert(n >= 0 && n <= 31);
 
@@ -289,7 +289,7 @@ static void av_unused put_bits32(PutBitContext *s, uint32_t value)
  * Returns the pointer to the byte where the bitstream writer will put
  * the next bit.
  */
-static inline uint8_t* put_bits_ptr(PutBitContext *s)
+static __inline uint8_t* put_bits_ptr(PutBitContext *s)
 {
 #ifdef ALT_BITSTREAM_WRITER
         return s->buf + (s->index>>3);
@@ -302,7 +302,7 @@ static inline uint8_t* put_bits_ptr(PutBitContext *s)
  * Skips the given number of bytes.
  * PutBitContext must be flushed & aligned to a byte boundary before calling this.
  */
-static inline void skip_put_bytes(PutBitContext *s, int n)
+static __inline void skip_put_bytes(PutBitContext *s, int n)
 {
         assert((put_bits_count(s)&7)==0);
 #ifdef ALT_BITSTREAM_WRITER
@@ -319,7 +319,7 @@ static inline void skip_put_bytes(PutBitContext *s, int n)
  * Must only be used if the actual values in the bitstream do not matter.
  * If n is 0 the behavior is undefined.
  */
-static inline void skip_put_bits(PutBitContext *s, int n)
+static __inline void skip_put_bits(PutBitContext *s, int n)
 {
 #ifdef ALT_BITSTREAM_WRITER
     s->index += n;
@@ -335,7 +335,7 @@ static inline void skip_put_bits(PutBitContext *s, int n)
  *
  * @param size the new size in bytes of the buffer where to put bits
  */
-static inline void set_put_bits_buffer_size(PutBitContext *s, int size)
+static __inline void set_put_bits_buffer_size(PutBitContext *s, int size)
 {
     s->buf_end= s->buf + size;
 }

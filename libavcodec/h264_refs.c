@@ -336,7 +336,7 @@ void ff_h264_fill_mbaff_ref_list(H264Context *h){
  *         for display purposes) zero if one of the fields remains in
  *         reference
  */
-static inline int unreference_pic(H264Context *h, Picture *pic, int refmask){
+static __inline int unreference_pic(H264Context *h, Picture *pic, int refmask){
     int i;
     if (pic->reference &= refmask) {
         return 0;

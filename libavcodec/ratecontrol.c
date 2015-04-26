@@ -49,14 +49,14 @@ void ff_write_pass1_stats(MpegEncContext *s){
             s->f_code, s->b_code, s->current_picture.mc_mb_var_sum, s->current_picture.mb_var_sum, s->i_count, s->skip_count, s->header_bits);
 }
 
-static inline double qp2bits(RateControlEntry *rce, double qp){
+static __inline double qp2bits(RateControlEntry *rce, double qp){
     if(qp<=0.0){
         av_log(NULL, AV_LOG_ERROR, "qp<=0.0\n");
     }
     return rce->qscale * (double)(rce->i_tex_bits + rce->p_tex_bits+1)/ qp;
 }
 
-static inline double bits2qp(RateControlEntry *rce, double bits){
+static __inline double bits2qp(RateControlEntry *rce, double bits){
     if(bits<0.9){
         av_log(NULL, AV_LOG_ERROR, "bits<0.9\n");
     }

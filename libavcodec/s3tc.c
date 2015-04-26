@@ -25,7 +25,7 @@
 #include "avcodec.h"
 #include "s3tc.h"
 
-static inline void dxt1_decode_pixels(const uint8_t *s, uint32_t *d,
+static __inline void dxt1_decode_pixels(const uint8_t *s, uint32_t *d,
                                       unsigned int qstride, unsigned int flag,
                                       uint64_t alpha) {
     unsigned int x, y, c0, c1, a = (!flag * 255) << 24;

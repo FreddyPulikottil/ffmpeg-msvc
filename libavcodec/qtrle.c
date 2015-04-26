@@ -112,7 +112,7 @@ static void qtrle_decode_1bpp(QtrleContext *s, int stream_ptr, int row_ptr, int 
     }
 }
 
-static inline void qtrle_decode_2n4bpp(QtrleContext *s, int stream_ptr,
+static __inline void qtrle_decode_2n4bpp(QtrleContext *s, int stream_ptr,
                              int row_ptr, int lines_to_change, int bpp)
 {
     int rle_code, i;

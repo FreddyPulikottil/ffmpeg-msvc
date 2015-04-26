@@ -260,7 +260,7 @@ static void init_mv(FourXContext *f){
     }
 }
 
-static inline void mcdc(uint16_t *dst, uint16_t *src, int log2w, int h, int stride, int scale, int dc){
+static __inline void mcdc(uint16_t *dst, uint16_t *src, int log2w, int h, int stride, int scale, int dc){
    int i;
    dc*= 0x10001;
 
@@ -457,7 +457,7 @@ static int decode_i_block(FourXContext *f, DCTELEM *block){
     return 0;
 }
 
-static inline void idct_put(FourXContext *f, int x, int y){
+static __inline void idct_put(FourXContext *f, int x, int y){
     DCTELEM (*block)[64]= f->block;
     int stride= f->current_picture.linesize[0]>>1;
     int i;

@@ -47,7 +47,7 @@ typedef struct TTAContext {
 } TTAContext;
 
 #if 0
-static inline int shift_1(int i)
+static __inline int shift_1(int i)
 {
     if (i < 32)
         return 1 << i;
@@ -55,7 +55,7 @@ static inline int shift_1(int i)
         return 0x80000000; // 16 << 31
 }
 
-static inline int shift_16(int i)
+static __inline int shift_16(int i)
 {
     if (i < 28)
         return 16 << i;
@@ -103,7 +103,7 @@ static void ttafilter_init(TTAFilter *c, int32_t shift, int32_t mode) {
 }
 
 // FIXME: copy paste from original
-static inline void memshl(register int32_t *a, register int32_t *b) {
+static __inline void memshl(register int32_t *a, register int32_t *b) {
     *a++ = *b++;
     *a++ = *b++;
     *a++ = *b++;
@@ -116,7 +116,7 @@ static inline void memshl(register int32_t *a, register int32_t *b) {
 
 // FIXME: copy paste from original
 // mode=1 encoder, mode=0 decoder
-static inline void ttafilter_process(TTAFilter *c, int32_t *in, int32_t mode) {
+static __inline void ttafilter_process(TTAFilter *c, int32_t *in, int32_t mode) {
     register int32_t *dl = c->dl, *qm = c->qm, *dx = c->dx, sum = c->round;
 
     if (!c->error) {

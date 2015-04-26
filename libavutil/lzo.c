@@ -42,7 +42,7 @@ typedef struct LZOContext {
  * @brief Reads one byte from the input buffer, avoiding an overrun.
  * @return byte read
  */
-static inline int get_byte(LZOContext *c)
+static __inline int get_byte(LZOContext *c)
 {
     if (c->in < c->in_end)
         return *c->in++;
@@ -62,7 +62,7 @@ static inline int get_byte(LZOContext *c)
  * @param mask bits used from x
  * @return decoded length value
  */
-static inline int get_len(LZOContext *c, int x, int mask)
+static __inline int get_len(LZOContext *c, int x, int mask)
 {
     int cnt = x & mask;
     if (!cnt) {
@@ -82,7 +82,7 @@ static inline int get_len(LZOContext *c, int x, int mask)
  * @brief Copies bytes from input to output buffer with checking.
  * @param cnt number of bytes to copy, must be >= 0
  */
-static inline void copy(LZOContext *c, int cnt)
+static __inline void copy(LZOContext *c, int cnt)
 {
     register const uint8_t *src = c->in;
     register uint8_t *dst       = c->out;
@@ -115,7 +115,7 @@ static inline void copy(LZOContext *c, int cnt)
  * cnt > back is valid, this will copy the bytes we just copied,
  * thus creating a repeating pattern with a period length of back.
  */
-static inline void copy_backptr(LZOContext *c, int back, int cnt)
+static __inline void copy_backptr(LZOContext *c, int back, int cnt)
 {
     register uint8_t *dst       = c->out;
     av_assert0(cnt > 0);

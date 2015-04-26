@@ -253,7 +253,7 @@ static av_always_inline int fold(int diff, int bits){
     return diff;
 }
 
-static inline int predict(int_fast16_t *src, int_fast16_t *last){
+static __inline int predict(int_fast16_t *src, int_fast16_t *last){
     const int LT= last[-1];
     const int  T= last[ 0];
     const int L =  src[-1];
@@ -261,7 +261,7 @@ static inline int predict(int_fast16_t *src, int_fast16_t *last){
     return mid_pred(L, L + T - LT, T);
 }
 
-static inline int get_context(FFV1Context *f, int_fast16_t *src, int_fast16_t *last, int_fast16_t *last2){
+static __inline int get_context(FFV1Context *f, int_fast16_t *src, int_fast16_t *last, int_fast16_t *last2){
     const int LT= last[-1];
     const int  T= last[ 0];
     const int RT= last[ 1];
@@ -276,7 +276,7 @@ static inline int get_context(FFV1Context *f, int_fast16_t *src, int_fast16_t *l
         return f->quant_table[0][(L-LT) & 0xFF] + f->quant_table[1][(LT-T) & 0xFF] + f->quant_table[2][(T-RT) & 0xFF];
 }
 
-static inline void put_symbol_inline(RangeCoder *c, uint8_t *state, int v, int is_signed){
+static __inline void put_symbol_inline(RangeCoder *c, uint8_t *state, int v, int is_signed){
     int i;
 
     if(v){
@@ -317,7 +317,7 @@ static void av_noinline put_symbol(RangeCoder *c, uint8_t *state, int v, int is_
     put_symbol_inline(c, state, v, is_signed);
 }
 
-static inline av_flatten int get_symbol_inline(RangeCoder *c, uint8_t *state, int is_signed){
+static __inline av_flatten int get_symbol_inline(RangeCoder *c, uint8_t *state, int is_signed){
     if(get_rac(c, state+0))
         return 0;
     else{
@@ -341,7 +341,7 @@ static int av_noinline get_symbol(RangeCoder *c, uint8_t *state, int is_signed){
     return get_symbol_inline(c, state, is_signed);
 }
 
-static inline void update_vlc_state(VlcState * const state, const int v){
+static __inline void update_vlc_state(VlcState * const state, const int v){
     int drift= state->drift;
     int count= state->count;
     state->error_sum += FFABS(v);
@@ -372,7 +372,7 @@ static inline void update_vlc_state(VlcState * const state, const int v){
     state->count= count;
 }
 
-static inline void put_vlc_symbol(PutBitContext *pb, VlcState * const state, int v, int bits){
+static __inline void put_vlc_symbol(PutBitContext *pb, VlcState * const state, int v, int bits){
     int i, k, code;
 //printf("final: %d ", v);
     v = fold(v - state->bias, bits);
@@ -399,7 +399,7 @@ static inline void put_vlc_symbol(PutBitContext *pb, VlcState * const state, int
     update_vlc_state(state, v);
 }
 
-static inline int get_vlc_symbol(GetBitContext *gb, VlcState * const state, int bits){
+static __inline int get_vlc_symbol(GetBitContext *gb, VlcState * const state, int bits){
     int k, i, v, ret;
 
     i= state->count;
@@ -428,7 +428,7 @@ static inline int get_vlc_symbol(GetBitContext *gb, VlcState * const state, int 
 }
 
 #if CONFIG_FFV1_ENCODER
-static inline int encode_line(FFV1Context *s, int w, int_fast16_t *sample[2], int plane_index, int bits){
+static __inline int encode_line(FFV1Context *s, int w, int_fast16_t *sample[2], int plane_index, int bits){
     PlaneContext * const p= &s->plane[plane_index];
     RangeCoder * const c= &s->c;
     int x;

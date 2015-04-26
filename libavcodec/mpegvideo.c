@@ -1443,7 +1443,7 @@ v= (int)(128 + r*sin(theta*3.141592/180));
     }
 }
 
-static inline int hpel_motion_lowres(MpegEncContext *s,
+static __inline int hpel_motion_lowres(MpegEncContext *s,
                                   uint8_t *dest, uint8_t *src,
                                   int field_based, int field_select,
                                   int src_x, int src_y,
@@ -1584,7 +1584,7 @@ static av_always_inline void mpeg_motion_lowres(MpegEncContext *s,
     //FIXME h261 lowres loop filter
 }
 
-static inline void chroma_4mv_motion_lowres(MpegEncContext *s,
+static __inline void chroma_4mv_motion_lowres(MpegEncContext *s,
                                      uint8_t *dest_cb, uint8_t *dest_cr,
                                      uint8_t **ref_picture,
                                      h264_chroma_mc_func *pix_op,
@@ -1646,7 +1646,7 @@ static inline void chroma_4mv_motion_lowres(MpegEncContext *s,
  * @param pic_op halfpel motion compensation function (average or put normally)
  * the motion vectors are taken from s->mv and the MV type from s->mv_type
  */
-static inline void MPV_motion_lowres(MpegEncContext *s,
+static __inline void MPV_motion_lowres(MpegEncContext *s,
                               uint8_t *dest_y, uint8_t *dest_cb, uint8_t *dest_cr,
                               int dir, uint8_t **ref_picture,
                               h264_chroma_mc_func *pix_op)
@@ -1762,7 +1762,7 @@ static inline void MPV_motion_lowres(MpegEncContext *s,
 }
 
 /* put block[] to dest[] */
-static inline void put_dct(MpegEncContext *s,
+static __inline void put_dct(MpegEncContext *s,
                            DCTELEM *block, int i, uint8_t *dest, int line_size, int qscale)
 {
     s->dct_unquantize_intra(s, block, i, qscale);
@@ -1770,7 +1770,7 @@ static inline void put_dct(MpegEncContext *s,
 }
 
 /* add block[] to dest[] */
-static inline void add_dct(MpegEncContext *s,
+static __inline void add_dct(MpegEncContext *s,
                            DCTELEM *block, int i, uint8_t *dest, int line_size)
 {
     if (s->block_last_index[i] >= 0) {
@@ -1778,7 +1778,7 @@ static inline void add_dct(MpegEncContext *s,
     }
 }
 
-static inline void add_dequant_dct(MpegEncContext *s,
+static __inline void add_dequant_dct(MpegEncContext *s,
                            DCTELEM *block, int i, uint8_t *dest, int line_size, int qscale)
 {
     if (s->block_last_index[i] >= 0) {

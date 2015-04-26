@@ -74,7 +74,7 @@ typedef struct SonicContext {
 #define BASE_QUANT      0.6
 #define RATE_VARIATION  3.0
 
-static inline int divide(int a, int b)
+static __inline int divide(int a, int b)
 {
     if (a < 0)
         return -( (-a + b/2)/b );
@@ -82,18 +82,18 @@ static inline int divide(int a, int b)
         return (a + b/2)/b;
 }
 
-static inline int shift(int a,int b)
+static __inline int shift(int a,int b)
 {
     return (a+(1<<(b-1))) >> b;
 }
 
-static inline int shift_down(int a,int b)
+static __inline int shift_down(int a,int b)
 {
     return (a>>b)+((a<0)?1:0);
 }
 
 #if 1
-static inline int intlist_write(PutBitContext *pb, int *buf, int entries, int base_2_part)
+static __inline int intlist_write(PutBitContext *pb, int *buf, int entries, int base_2_part)
 {
     int i;
 
@@ -103,7 +103,7 @@ static inline int intlist_write(PutBitContext *pb, int *buf, int entries, int ba
     return 1;
 }
 
-static inline int intlist_read(GetBitContext *gb, int *buf, int entries, int base_2_part)
+static __inline int intlist_read(GetBitContext *gb, int *buf, int entries, int base_2_part)
 {
     int i;
 
@@ -480,7 +480,7 @@ static void modified_levinson_durbin(int *window, int window_entries,
     av_free(state);
 }
 
-static inline int code_samplerate(int samplerate)
+static __inline int code_samplerate(int samplerate)
 {
     switch (samplerate)
     {

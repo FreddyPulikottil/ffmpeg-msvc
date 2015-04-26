@@ -35,7 +35,7 @@
 //#undef NDEBUG
 #include <assert.h>
 
-static inline int fetch_diagonal_mv(H264Context *h, const int16_t **C, int i, int list, int part_width){
+static __inline int fetch_diagonal_mv(H264Context *h, const int16_t **C, int i, int list, int part_width){
     const int topright_ref= h->ref_cache[list][ i - 8 + part_width ];
     MpegEncContext *s = &h->s;
 
@@ -93,7 +93,7 @@ static inline int fetch_diagonal_mv(H264Context *h, const int16_t **C, int i, in
  * @param mx the x component of the predicted motion vector
  * @param my the y component of the predicted motion vector
  */
-static inline void pred_motion(H264Context * const h, int n, int part_width, int list, int ref, int * const mx, int * const my){
+static __inline void pred_motion(H264Context * const h, int n, int part_width, int list, int ref, int * const mx, int * const my){
     const int index8= scan8[n];
     const int top_ref=      h->ref_cache[list][ index8 - 8 ];
     const int left_ref=     h->ref_cache[list][ index8 - 1 ];
@@ -148,7 +148,7 @@ static inline void pred_motion(H264Context * const h, int n, int part_width, int
  * @param mx the x component of the predicted motion vector
  * @param my the y component of the predicted motion vector
  */
-static inline void pred_16x8_motion(H264Context * const h, int n, int list, int ref, int * const mx, int * const my){
+static __inline void pred_16x8_motion(H264Context * const h, int n, int list, int ref, int * const mx, int * const my){
     if(n==0){
         const int top_ref=      h->ref_cache[list][ scan8[0] - 8 ];
         const int16_t * const B= h->mv_cache[list][ scan8[0] - 8 ];
@@ -183,7 +183,7 @@ static inline void pred_16x8_motion(H264Context * const h, int n, int list, int 
  * @param mx the x component of the predicted motion vector
  * @param my the y component of the predicted motion vector
  */
-static inline void pred_8x16_motion(H264Context * const h, int n, int list, int ref, int * const mx, int * const my){
+static __inline void pred_8x16_motion(H264Context * const h, int n, int list, int ref, int * const mx, int * const my){
     if(n==0){
         const int left_ref=      h->ref_cache[list][ scan8[0] - 1 ];
         const int16_t * const A=  h->mv_cache[list][ scan8[0] - 1 ];
@@ -214,7 +214,7 @@ static inline void pred_8x16_motion(H264Context * const h, int n, int list, int 
     pred_motion(h, n, 2, list, ref, mx, my);
 }
 
-static inline void pred_pskip_motion(H264Context * const h, int * const mx, int * const my){
+static __inline void pred_pskip_motion(H264Context * const h, int * const mx, int * const my){
     const int top_ref = h->ref_cache[0][ scan8[0] - 8 ];
     const int left_ref= h->ref_cache[0][ scan8[0] - 1 ];
 

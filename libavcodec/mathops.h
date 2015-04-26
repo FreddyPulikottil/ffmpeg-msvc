@@ -92,7 +92,7 @@ static av_always_inline unsigned UMULH(unsigned a, unsigned b){
 /* median of 3 */
 #ifndef mid_pred
 #define mid_pred mid_pred
-static inline av_const int mid_pred(int a, int b, int c)
+static __inline av_const int mid_pred(int a, int b, int c)
 {
 #if 0
     int t= (a-b)&((a-b)>>31);
@@ -120,7 +120,7 @@ static inline av_const int mid_pred(int a, int b, int c)
 #endif
 
 #ifndef sign_extend
-static inline av_const int sign_extend(int val, unsigned bits)
+static __inline av_const int sign_extend(int val, unsigned bits)
 {
 #ifndef _MSC_VER
 	return (val << (INT_BIT - bits)) >> (INT_BIT - bits);
@@ -131,7 +131,7 @@ static inline av_const int sign_extend(int val, unsigned bits)
 #endif
 
 #ifndef zero_extend
-static inline av_const unsigned zero_extend(unsigned val, unsigned bits)
+static __inline av_const unsigned zero_extend(unsigned val, unsigned bits)
 {
 #ifndef _MSC_VER
     return (val << (INT_BIT - bits)) >> (INT_BIT - bits);

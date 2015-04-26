@@ -583,17 +583,17 @@ void ff_set_cmp(DSPContext* c, me_cmp_func *cmp, int type);
 
 #define         BYTE_VEC32(c)   ((c)*0x01010101UL)
 
-static inline uint32_t rnd_avg32(uint32_t a, uint32_t b)
+static __inline uint32_t rnd_avg32(uint32_t a, uint32_t b)
 {
     return (a | b) - (((a ^ b) & ~BYTE_VEC32(0x01)) >> 1);
 }
 
-static inline uint32_t no_rnd_avg32(uint32_t a, uint32_t b)
+static __inline uint32_t no_rnd_avg32(uint32_t a, uint32_t b)
 {
     return (a & b) + (((a ^ b) & ~BYTE_VEC32(0x01)) >> 1);
 }
 
-static inline int get_penalty_factor(int lambda, int lambda2, int type){
+static __inline int get_penalty_factor(int lambda, int lambda2, int type){
     switch(type&0xFF){
     default:
     case FF_CMP_SAD:
@@ -652,7 +652,7 @@ void ff_mlp_init_x86(DSPContext* c, AVCodecContext *avctx);
 
 #undef emms_c
 
-static inline void emms(void)
+static __inline void emms(void)
 {
 #ifndef _MSC_VER
     __asm__ volatile ("emms;":::"memory");
@@ -735,7 +735,7 @@ static int name16(void /*MpegEncContext*/ *s, uint8_t *dst, uint8_t *src, int st
 }
 
 
-static inline void copy_block2(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
+static __inline void copy_block2(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
 {
     int i;
     for(i=0; i<h; i++)
@@ -746,7 +746,7 @@ static inline void copy_block2(uint8_t *dst, const uint8_t *src, int dstStride, 
     }
 }
 
-static inline void copy_block4(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
+static __inline void copy_block4(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
 {
     int i;
     for(i=0; i<h; i++)
@@ -757,7 +757,7 @@ static inline void copy_block4(uint8_t *dst, const uint8_t *src, int dstStride, 
     }
 }
 
-static inline void copy_block8(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
+static __inline void copy_block8(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
 {
     int i;
     for(i=0; i<h; i++)
@@ -769,7 +769,7 @@ static inline void copy_block8(uint8_t *dst, const uint8_t *src, int dstStride, 
     }
 }
 
-static inline void copy_block9(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
+static __inline void copy_block9(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
 {
     int i;
     for(i=0; i<h; i++)
@@ -782,7 +782,7 @@ static inline void copy_block9(uint8_t *dst, const uint8_t *src, int dstStride, 
     }
 }
 
-static inline void copy_block16(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
+static __inline void copy_block16(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
 {
     int i;
     for(i=0; i<h; i++)
@@ -796,7 +796,7 @@ static inline void copy_block16(uint8_t *dst, const uint8_t *src, int dstStride,
     }
 }
 
-static inline void copy_block17(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
+static __inline void copy_block17(uint8_t *dst, const uint8_t *src, int dstStride, int srcStride, int h)
 {
     int i;
     for(i=0; i<h; i++)

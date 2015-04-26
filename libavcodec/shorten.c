@@ -133,7 +133,7 @@ static int allocate_buffers(ShortenContext *s)
 }
 
 
-static inline unsigned int get_uint(ShortenContext *s, int k)
+static __inline unsigned int get_uint(ShortenContext *s, int k)
 {
     if (s->version != 0)
         k = get_ur_golomb_shorten(&s->gb, ULONGSIZE);
@@ -173,12 +173,12 @@ static void init_offset(ShortenContext *s)
             s->offset[chan][i] = mean;
 }
 
-static inline int get_le32(GetBitContext *gb)
+static __inline int get_le32(GetBitContext *gb)
 {
     return bswap_32(get_bits_long(gb, 32));
 }
 
-static inline short get_le16(GetBitContext *gb)
+static __inline short get_le16(GetBitContext *gb)
 {
     return bswap_16(get_bits_long(gb, 16));
 }

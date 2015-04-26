@@ -57,7 +57,7 @@ max run: 29/41
  * Returns the number of bits that encoding the 8x8 block in block would need.
  * @param[in]  block_last_index last index in scantable order that refers to a non zero element in block.
  */
-static inline int get_block_rate(MpegEncContext * s, DCTELEM block[64], int block_last_index, uint8_t scantable[64]){
+static __inline int get_block_rate(MpegEncContext * s, DCTELEM block[64], int block_last_index, uint8_t scantable[64]){
     int last=0;
     int j;
     int rate=0;
@@ -89,7 +89,7 @@ static inline int get_block_rate(MpegEncContext * s, DCTELEM block[64], int bloc
  * @param[out] st scantable for each 8x8 block
  * @param[in] zigzag_last_index index refering to the last non zero coefficient in zigzag order
  */
-static inline void restore_ac_coeffs(MpegEncContext * s, DCTELEM block[6][64], const int dir[6], uint8_t *st[6], const int zigzag_last_index[6])
+static __inline void restore_ac_coeffs(MpegEncContext * s, DCTELEM block[6][64], const int dir[6], uint8_t *st[6], const int zigzag_last_index[6])
 {
     int i, n;
     memcpy(s->block_last_index, zigzag_last_index, sizeof(int)*6);
@@ -120,7 +120,7 @@ static inline void restore_ac_coeffs(MpegEncContext * s, DCTELEM block[6][64], c
  * @param[out] st scantable for each 8x8 block
  * @param[out] zigzag_last_index index refering to the last non zero coefficient in zigzag order
  */
-static inline int decide_ac_pred(MpegEncContext * s, DCTELEM block[6][64], const int dir[6], uint8_t *st[6], int zigzag_last_index[6])
+static __inline int decide_ac_pred(MpegEncContext * s, DCTELEM block[6][64], const int dir[6], uint8_t *st[6], int zigzag_last_index[6])
 {
     int score= 0;
     int i, n;
@@ -239,7 +239,7 @@ void ff_clean_mpeg4_qscales(MpegEncContext *s){
  * encodes the dc value.
  * @param n block index (0-3 are luma, 4-5 are chroma)
  */
-static inline void mpeg4_encode_dc(PutBitContext * s, int level, int n)
+static __inline void mpeg4_encode_dc(PutBitContext * s, int level, int n)
 {
 #if 1
     /* DC will overflow if level is outside the [-255,255] range. */
@@ -280,7 +280,7 @@ static inline void mpeg4_encode_dc(PutBitContext * s, int level, int n)
 #endif
 }
 
-static inline int mpeg4_get_dc_length(int level, int n){
+static __inline int mpeg4_get_dc_length(int level, int n){
     if (n < 4) {
         return uni_DCtab_lum_len[level + 256];
     } else {
@@ -292,7 +292,7 @@ static inline int mpeg4_get_dc_length(int level, int n){
  * encodes a 8x8 block
  * @param n block index (0-3 are luma, 4-5 are chroma)
  */
-static inline void mpeg4_encode_block(MpegEncContext * s, DCTELEM * block, int n, int intra_dc,
+static __inline void mpeg4_encode_block(MpegEncContext * s, DCTELEM * block, int n, int intra_dc,
                                uint8_t *scan_table, PutBitContext *dc_pb, PutBitContext *ac_pb)
 {
     int i, last_non_zero;
@@ -459,7 +459,7 @@ static int mpeg4_get_block_length(MpegEncContext * s, DCTELEM * block, int n, in
     return len;
 }
 
-static inline void mpeg4_encode_blocks(MpegEncContext * s, DCTELEM block[6][64], int intra_dc[6],
+static __inline void mpeg4_encode_blocks(MpegEncContext * s, DCTELEM block[6][64], int intra_dc[6],
                                uint8_t **scan_table, PutBitContext *dc_pb, PutBitContext *ac_pb){
     int i;
 

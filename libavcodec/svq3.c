@@ -201,7 +201,7 @@ void ff_svq3_add_idct_c(uint8_t *dst, DCTELEM *block, int stride, int qp,
     }
 }
 
-static inline int svq3_decode_block(GetBitContext *gb, DCTELEM *block,
+static __inline int svq3_decode_block(GetBitContext *gb, DCTELEM *block,
                                     int index, const int type)
 {
     static const uint8_t *const scan_patterns[4] =
@@ -258,7 +258,7 @@ static inline int svq3_decode_block(GetBitContext *gb, DCTELEM *block,
     return 0;
 }
 
-static inline void svq3_mc_dir_part(MpegEncContext *s,
+static __inline void svq3_mc_dir_part(MpegEncContext *s,
                                     int x, int y, int width, int height,
                                     int mx, int my, int dxy,
                                     int thirdpel, int dir, int avg)
@@ -320,7 +320,7 @@ static inline void svq3_mc_dir_part(MpegEncContext *s,
     }
 }
 
-static inline int svq3_mc_dir(H264Context *h, int size, int mode, int dir,
+static __inline int svq3_mc_dir(H264Context *h, int size, int mode, int dir,
                               int avg)
 {
     int i, j, k, mx, my, dx, dy, x, y;

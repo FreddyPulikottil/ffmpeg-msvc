@@ -26,7 +26,7 @@
 #include "atomic.h"
 
 #define avpriv_atomic_int_get atomic_int_get_gcc
-static inline int atomic_int_get_gcc(volatile int *ptr)
+static __inline int atomic_int_get_gcc(volatile int *ptr)
 {
 #if HAVE_ATOMIC_COMPARE_EXCHANGE
     return __atomic_load_n(ptr, __ATOMIC_SEQ_CST);
@@ -37,7 +37,7 @@ static inline int atomic_int_get_gcc(volatile int *ptr)
 }
 
 #define avpriv_atomic_int_set atomic_int_set_gcc
-static inline void atomic_int_set_gcc(volatile int *ptr, int val)
+static __inline void atomic_int_set_gcc(volatile int *ptr, int val)
 {
 #if HAVE_ATOMIC_COMPARE_EXCHANGE
     __atomic_store_n(ptr, val, __ATOMIC_SEQ_CST);
@@ -48,7 +48,7 @@ static inline void atomic_int_set_gcc(volatile int *ptr, int val)
 }
 
 #define avpriv_atomic_int_add_and_fetch atomic_int_add_and_fetch_gcc
-static inline int atomic_int_add_and_fetch_gcc(volatile int *ptr, int inc)
+static __inline int atomic_int_add_and_fetch_gcc(volatile int *ptr, int inc)
 {
 #if HAVE_ATOMIC_COMPARE_EXCHANGE
     return __atomic_add_fetch(ptr, inc, __ATOMIC_SEQ_CST);
@@ -58,7 +58,7 @@ static inline int atomic_int_add_and_fetch_gcc(volatile int *ptr, int inc)
 }
 
 #define avpriv_atomic_ptr_cas atomic_ptr_cas_gcc
-static inline void *atomic_ptr_cas_gcc(void * volatile *ptr,
+static __inline void *atomic_ptr_cas_gcc(void * volatile *ptr,
                                        void *oldval, void *newval)
 {
 #if HAVE_SYNC_VAL_COMPARE_AND_SWAP

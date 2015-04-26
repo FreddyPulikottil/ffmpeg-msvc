@@ -38,7 +38,7 @@
  *
  ****************************************************************************/
 
-static inline int get_bs(cavs_vector *mvP, cavs_vector *mvQ, int b) {
+static __inline int get_bs(cavs_vector *mvP, cavs_vector *mvQ, int b) {
     if((mvP->ref == REF_INTRA) || (mvQ->ref == REF_INTRA))
         return 2;
     if( (abs(mvP->x - mvQ->x) >= 4) ||  (abs(mvP->y - mvQ->y) >= 4) )
@@ -324,7 +324,7 @@ void ff_cavs_modify_mb_i(AVSContext *h, int *pred_mode_uv) {
  *
  ****************************************************************************/
 
-static inline void mc_dir_part(AVSContext *h,Picture *pic,int square,
+static __inline void mc_dir_part(AVSContext *h,Picture *pic,int square,
                         int chroma_height,int delta,int list,uint8_t *dest_y,
                         uint8_t *dest_cb,uint8_t *dest_cr,int src_x_offset,
                         int src_y_offset,qpel_mc_func *qpix_op,
@@ -379,7 +379,7 @@ static inline void mc_dir_part(AVSContext *h,Picture *pic,int square,
     chroma_op(dest_cr, src_cr, h->c_stride, chroma_height, mx&7, my&7);
 }
 
-static inline void mc_part_std(AVSContext *h,int square,int chroma_height,int delta,
+static __inline void mc_part_std(AVSContext *h,int square,int chroma_height,int delta,
                         uint8_t *dest_y,uint8_t *dest_cb,uint8_t *dest_cr,
                         int x_offset, int y_offset,qpel_mc_func *qpix_put,
                         h264_chroma_mc_func chroma_put,qpel_mc_func *qpix_avg,
@@ -448,14 +448,14 @@ void ff_cavs_inter(AVSContext *h, enum cavs_mb mb_type) {
  *
  ****************************************************************************/
 
-static inline void scale_mv(AVSContext *h, int *d_x, int *d_y, cavs_vector *src, int distp) {
+static __inline void scale_mv(AVSContext *h, int *d_x, int *d_y, cavs_vector *src, int distp) {
     int den = h->scale_den[src->ref];
 
     *d_x = (src->x*distp*den + 256 + (src->x>>31)) >> 9;
     *d_y = (src->y*distp*den + 256 + (src->y>>31)) >> 9;
 }
 
-static inline void mv_pred_median(AVSContext *h, cavs_vector *mvP,
+static __inline void mv_pred_median(AVSContext *h, cavs_vector *mvP,
                         cavs_vector *mvA, cavs_vector *mvB, cavs_vector *mvC) {
     int ax, ay, bx, by, cx, cy;
     int len_ab, len_bc, len_ca, len_mid;

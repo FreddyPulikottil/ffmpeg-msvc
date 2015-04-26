@@ -37,7 +37,7 @@
 /**
  * Encode error from regular symbol
  */
-static inline void ls_encode_regular(JLSState *state, PutBitContext *pb, int Q, int err){
+static __inline void ls_encode_regular(JLSState *state, PutBitContext *pb, int Q, int err){
     int k;
     int val;
     int map;
@@ -62,7 +62,7 @@ static inline void ls_encode_regular(JLSState *state, PutBitContext *pb, int Q, 
 /**
  * Encode error from run termination
  */
-static inline void ls_encode_runterm(JLSState *state, PutBitContext *pb, int RItype, int err, int limit_add){
+static __inline void ls_encode_runterm(JLSState *state, PutBitContext *pb, int RItype, int err, int limit_add){
     int k;
     int val, map;
     int Q = 365 + RItype;
@@ -92,7 +92,7 @@ static inline void ls_encode_runterm(JLSState *state, PutBitContext *pb, int RIt
 /**
  * Encode run value as specified by JPEG-LS standard
  */
-static inline void ls_encode_run(JLSState *state, PutBitContext *pb, int run, int comp, int trail){
+static __inline void ls_encode_run(JLSState *state, PutBitContext *pb, int run, int comp, int trail){
     while(run >= (1 << ff_log2_run[state->run_index[comp]])){
         put_bits(pb, 1, 1);
         run -= 1 << ff_log2_run[state->run_index[comp]];
@@ -112,7 +112,7 @@ static inline void ls_encode_run(JLSState *state, PutBitContext *pb, int run, in
 /**
  * Encode one line of image
  */
-static inline void ls_encode_line(JLSState *state, PutBitContext *pb, void *last, void *cur, int last2, int w, int stride, int comp, int bits){
+static __inline void ls_encode_line(JLSState *state, PutBitContext *pb, void *last, void *cur, int last2, int w, int stride, int comp, int bits){
     int x = 0;
     int Ra, Rb, Rc, Rd;
     int D0, D1, D2;

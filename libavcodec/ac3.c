@@ -74,7 +74,7 @@ static uint8_t band_start_tab[51];
 static uint8_t bin_to_band_tab[253];
 #endif
 
-static inline int calc_lowcomp1(int a, int b0, int b1, int c)
+static __inline int calc_lowcomp1(int a, int b0, int b1, int c)
 {
     if ((b0 + 256) == b1) {
         a = c;
@@ -84,7 +84,7 @@ static inline int calc_lowcomp1(int a, int b0, int b1, int c)
     return a;
 }
 
-static inline int calc_lowcomp(int a, int b0, int b1, int bin)
+static __inline int calc_lowcomp(int a, int b0, int b1, int bin)
 {
     if (bin < 7) {
         return calc_lowcomp1(a, b0, b1, 384);

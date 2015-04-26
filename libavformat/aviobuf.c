@@ -360,7 +360,7 @@ void init_checksum(ByteIOContext *s,
     }
 }
 
-/* XXX: put an inline version */
+/* XXX: put an __inline version */
 int get_byte(ByteIOContext *s)
 {
     if (s->buf_ptr < s->buf_end) {

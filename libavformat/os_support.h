@@ -48,7 +48,7 @@
 #  define lseek(f,p,w) _lseeki64((f), (p), (w))
 #endif /* defined(__MINGW32__) && !defined(__MINGW32CE__) */
 
-static inline int is_dos_path(const char *path)
+static __inline int is_dos_path(const char *path)
 {
 #if HAVE_DOS_PATHS
     if (path[0] && path[1] == ':')

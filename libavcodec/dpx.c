@@ -40,7 +40,7 @@ static unsigned int read32(const uint8_t **ptr, int is_big)
     return temp;
 }
 
-static inline unsigned make_16bit(unsigned value)
+static __inline unsigned make_16bit(unsigned value)
 {
     // mask away invalid bits
     value &= 0xFFC0;

@@ -332,7 +332,7 @@ static av_always_inline void yuv2yuvX16inC_template(const int16_t *lumFilter, co
     }
 }
 
-static inline void yuv2yuvX16inC(const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
+static __inline void yuv2yuvX16inC(const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
                                  const int16_t *chrFilter, const int16_t **chrSrc, int chrFilterSize,
                                  const int16_t **alpSrc, uint16_t *dest, uint16_t *uDest, uint16_t *vDest, uint16_t *aDest, int dstW, int chrDstW,
                                  enum PixelFormat dstFormat)
@@ -352,7 +352,7 @@ static inline void yuv2yuvX16inC(const int16_t *lumFilter, const int16_t **lumSr
     }
 }
 
-static inline void yuv2yuvXinC(const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
+static __inline void yuv2yuvXinC(const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
                                const int16_t *chrFilter, const int16_t **chrSrc, int chrFilterSize,
                                const int16_t **alpSrc, uint8_t *dest, uint8_t *uDest, uint8_t *vDest, uint8_t *aDest, int dstW, int chrDstW)
 {
@@ -393,7 +393,7 @@ static inline void yuv2yuvXinC(const int16_t *lumFilter, const int16_t **lumSrc,
 
 }
 
-static inline void yuv2nv12XinC(const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
+static __inline void yuv2nv12XinC(const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
                                 const int16_t *chrFilter, const int16_t **chrSrc, int chrFilterSize,
                                 uint8_t *dest, uint8_t *uDest, int dstW, int chrDstW, int dstFormat)
 {
@@ -892,7 +892,7 @@ static inline void yuv2nv12XinC(const int16_t *lumFilter, const int16_t **lumSrc
         break;\
     }
 
-static inline void yuv2packedXinC(SwsContext *c, const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
+static __inline void yuv2packedXinC(SwsContext *c, const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
                                   const int16_t *chrFilter, const int16_t **chrSrc, int chrFilterSize,
                                   const int16_t **alpSrc, uint8_t *dest, int dstW, int y)
 {
@@ -900,7 +900,7 @@ static inline void yuv2packedXinC(SwsContext *c, const int16_t *lumFilter, const
     YSCALE_YUV_2_ANYRGB_C(YSCALE_YUV_2_RGBX_C, YSCALE_YUV_2_PACKEDX_C(void,0), YSCALE_YUV_2_GRAY16_C, YSCALE_YUV_2_MONOX_C)
 }
 
-static inline void yuv2rgbXinC_full(SwsContext *c, const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
+static __inline void yuv2rgbXinC_full(SwsContext *c, const int16_t *lumFilter, const int16_t **lumSrc, int lumFilterSize,
                                     const int16_t *chrFilter, const int16_t **chrSrc, int chrFilterSize,
                                     const int16_t **alpSrc, uint8_t *dest, int dstW, int y)
 {
@@ -994,7 +994,7 @@ static void fillPlane(uint8_t* plane, int stride, int width, int height, int y, 
     }
 }
 
-static inline void rgb48ToY(uint8_t *dst, const uint8_t *src, int width,
+static __inline void rgb48ToY(uint8_t *dst, const uint8_t *src, int width,
                             uint32_t *unused)
 {
     int i;
@@ -1007,7 +1007,7 @@ static inline void rgb48ToY(uint8_t *dst, const uint8_t *src, int width,
     }
 }
 
-static inline void rgb48ToUV(uint8_t *dstU, uint8_t *dstV,
+static __inline void rgb48ToUV(uint8_t *dstU, uint8_t *dstV,
                              const uint8_t *src1, const uint8_t *src2,
                              int width, uint32_t *unused)
 {
@@ -1023,7 +1023,7 @@ static inline void rgb48ToUV(uint8_t *dstU, uint8_t *dstV,
     }
 }
 
-static inline void rgb48ToUV_half(uint8_t *dstU, uint8_t *dstV,
+static __inline void rgb48ToUV_half(uint8_t *dstU, uint8_t *dstV,
                                   const uint8_t *src1, const uint8_t *src2,
                                   int width, uint32_t *unused)
 {
@@ -1040,7 +1040,7 @@ static inline void rgb48ToUV_half(uint8_t *dstU, uint8_t *dstV,
 }
 
 #define BGR2Y(type, name, shr, shg, shb, maskr, maskg, maskb, RY, GY, BY, S)\
-static inline void name(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)\
+static __inline void name(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)\
 {\
     int i;\
     for (i=0; i<width; i++) {\
@@ -1059,7 +1059,7 @@ BGR2Y(uint16_t, bgr15ToY, 0, 0, 0, 0x001F, 0x03E0, 0x7C00, RY<<10, GY<<5, BY    
 BGR2Y(uint16_t, rgb16ToY, 0, 0, 0, 0xF800, 0x07E0, 0x001F, RY    , GY<<5, BY<<11, RGB2YUV_SHIFT+8)
 BGR2Y(uint16_t, rgb15ToY, 0, 0, 0, 0x7C00, 0x03E0, 0x001F, RY    , GY<<5, BY<<10, RGB2YUV_SHIFT+7)
 
-static inline void abgrToA(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)
+static __inline void abgrToA(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)
 {
     int i;
     for (i=0; i<width; i++) {
@@ -1068,7 +1068,7 @@ static inline void abgrToA(uint8_t *dst, const uint8_t *src, long width, uint32_
 }
 
 #define BGR2UV(type, name, shr, shg, shb, maska, maskr, maskg, maskb, RU, GU, BU, RV, GV, BV, S)\
-static inline void name(uint8_t *dstU, uint8_t *dstV, const uint8_t *src, const uint8_t *dummy, long width, uint32_t *unused)\
+static __inline void name(uint8_t *dstU, uint8_t *dstV, const uint8_t *src, const uint8_t *dummy, long width, uint32_t *unused)\
 {\
     int i;\
     for (i=0; i<width; i++) {\
@@ -1080,7 +1080,7 @@ static inline void name(uint8_t *dstU, uint8_t *dstV, const uint8_t *src, const 
         dstV[i]= ((RV)*r + (GV)*g + (BV)*b + (257<<((S)-1)))>>(S);\
     }\
 }\
-static inline void name ## _half(uint8_t *dstU, uint8_t *dstV, const uint8_t *src, const uint8_t *dummy, long width, uint32_t *unused)\
+static __inline void name ## _half(uint8_t *dstU, uint8_t *dstV, const uint8_t *src, const uint8_t *dummy, long width, uint32_t *unused)\
 {\
     int i;\
     for (i=0; i<width; i++) {\
@@ -1105,7 +1105,7 @@ BGR2UV(uint16_t, bgr15ToUV, 0, 0, 0,          0,   0x001F, 0x03E0,   0x7C00, RU<
 BGR2UV(uint16_t, rgb16ToUV, 0, 0, 0,          0,   0xF800, 0x07E0,   0x001F, RU    , GU<<5, BU<<11, RV    , GV<<5, BV<<11, RGB2YUV_SHIFT+8)
 BGR2UV(uint16_t, rgb15ToUV, 0, 0, 0,          0,   0x7C00, 0x03E0,   0x001F, RU    , GU<<5, BU<<10, RV    , GV<<5, BV<<10, RGB2YUV_SHIFT+7)
 
-static inline void palToY(uint8_t *dst, const uint8_t *src, long width, uint32_t *pal)
+static __inline void palToY(uint8_t *dst, const uint8_t *src, long width, uint32_t *pal)
 {
     int i;
     for (i=0; i<width; i++) {
@@ -1115,7 +1115,7 @@ static inline void palToY(uint8_t *dst, const uint8_t *src, long width, uint32_t
     }
 }
 
-static inline void palToUV(uint8_t *dstU, uint8_t *dstV,
+static __inline void palToUV(uint8_t *dstU, uint8_t *dstV,
                            const uint8_t *src1, const uint8_t *src2,
                            long width, uint32_t *pal)
 {
@@ -1129,7 +1129,7 @@ static inline void palToUV(uint8_t *dstU, uint8_t *dstV,
     }
 }
 
-static inline void monowhite2Y(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)
+static __inline void monowhite2Y(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)
 {
     int i, j;
     for (i=0; i<width/8; i++) {
@@ -1139,7 +1139,7 @@ static inline void monowhite2Y(uint8_t *dst, const uint8_t *src, long width, uin
     }
 }
 
-static inline void monoblack2Y(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)
+static __inline void monoblack2Y(uint8_t *dst, const uint8_t *src, long width, uint32_t *unused)
 {
     int i, j;
     for (i=0; i<width/8; i++) {

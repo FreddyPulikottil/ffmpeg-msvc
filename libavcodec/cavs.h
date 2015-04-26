@@ -239,7 +239,7 @@ extern const cavs_vector ff_cavs_intra_mv;
 extern const cavs_vector ff_cavs_un_mv;
 extern const cavs_vector ff_cavs_dir_mv;
 
-static inline void modify_pred(const int_fast8_t *mod_table, int *mode) {
+static __inline void modify_pred(const int_fast8_t *mod_table, int *mode) {
     *mode = mod_table[*mode];
     if(*mode < 0) {
         av_log(NULL, AV_LOG_ERROR, "Illegal intra prediction mode\n");
@@ -247,7 +247,7 @@ static inline void modify_pred(const int_fast8_t *mod_table, int *mode) {
     }
 }
 
-static inline void set_intra_mode_default(AVSContext *h) {
+static __inline void set_intra_mode_default(AVSContext *h) {
     if(h->stream_revision > 0) {
         h->pred_mode_Y[3] =  h->pred_mode_Y[6] = NOT_AVAIL;
         h->top_pred_Y[h->mbx*2+0] = h->top_pred_Y[h->mbx*2+1] = NOT_AVAIL;
@@ -257,7 +257,7 @@ static inline void set_intra_mode_default(AVSContext *h) {
     }
 }
 
-static inline void set_mvs(cavs_vector *mv, enum cavs_block size) {
+static __inline void set_mvs(cavs_vector *mv, enum cavs_block size) {
     switch(size) {
     case BLK_16X16:
         mv[MV_STRIDE  ] = mv[0];
@@ -271,7 +271,7 @@ static inline void set_mvs(cavs_vector *mv, enum cavs_block size) {
     }
 }
 
-static inline void set_mv_intra(AVSContext *h) {
+static __inline void set_mv_intra(AVSContext *h) {
     h->mv[MV_FWD_X0] = ff_cavs_intra_mv;
     set_mvs(&h->mv[MV_FWD_X0], BLK_16X16);
     h->mv[MV_BWD_X0] = ff_cavs_intra_mv;
@@ -280,7 +280,7 @@ static inline void set_mv_intra(AVSContext *h) {
         h->col_type_base[h->mbidx] = I_8X8;
 }
 
-static inline int dequant(AVSContext *h, DCTELEM *level_buf, uint8_t *run_buf,
+static __inline int dequant(AVSContext *h, DCTELEM *level_buf, uint8_t *run_buf,
                           DCTELEM *dst, int mul, int shift, int coeff_num) {
     int round = 1 << (shift - 1);
     int pos = -1;

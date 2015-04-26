@@ -371,7 +371,7 @@ int ff_mjpeg_decode_sof(MJpegDecodeContext *s)
     return 0;
 }
 
-static inline int mjpeg_decode_dc(MJpegDecodeContext *s, int dc_index)
+static __inline int mjpeg_decode_dc(MJpegDecodeContext *s, int dc_index)
 {
     int code;
     code = get_vlc2(&s->gb, s->vlcs[0][dc_index].table, 9, 2);

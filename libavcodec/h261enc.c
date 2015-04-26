@@ -142,7 +142,7 @@ static void h261_encode_motion(H261Context * h, int val){
     }
 }
 
-static inline int get_cbp(MpegEncContext * s,
+static __inline int get_cbp(MpegEncContext * s,
                       DCTELEM block[6][64])
 {
     int i, cbp;

@@ -23,7 +23,7 @@
 #include <windows.h>
 #include "mem.h"
 
-static inline int utf8towchar(const char *filename_utf8, wchar_t **filename_w)
+static __inline int utf8towchar(const char *filename_utf8, wchar_t **filename_w)
 {
     int num_chars;
     num_chars = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, filename_utf8, -1, NULL, 0);

@@ -95,7 +95,7 @@ static const uint8_t default_scaling8[2][64]={
    24,25,27,28,30,32,33,35
 }};
 
-static inline int decode_hrd_parameters(H264Context *h, SPS *sps){
+static __inline int decode_hrd_parameters(H264Context *h, SPS *sps){
     MpegEncContext * const s = &h->s;
     int cpb_count, i;
     cpb_count = get_ue_golomb_31(&s->gb) + 1;
@@ -120,7 +120,7 @@ static inline int decode_hrd_parameters(H264Context *h, SPS *sps){
     return 0;
 }
 
-static inline int decode_vui_parameters(H264Context *h, SPS *sps){
+static __inline int decode_vui_parameters(H264Context *h, SPS *sps){
     MpegEncContext * const s = &h->s;
     int aspect_ratio_info_present_flag;
     unsigned int aspect_ratio_idc;

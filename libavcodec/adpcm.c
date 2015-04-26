@@ -222,7 +222,7 @@ static av_cold int adpcm_encode_close(AVCodecContext *avctx)
 }
 
 
-static inline unsigned char adpcm_ima_compress_sample(ADPCMChannelStatus *c, short sample)
+static __inline unsigned char adpcm_ima_compress_sample(ADPCMChannelStatus *c, short sample)
 {
     int delta = sample - c->prev_sample;
     int nibble = FFMIN(7, abs(delta)*4/step_table[c->step_index]) + (delta<0)*8;
@@ -232,7 +232,7 @@ static inline unsigned char adpcm_ima_compress_sample(ADPCMChannelStatus *c, sho
     return nibble;
 }
 
-static inline unsigned char adpcm_ms_compress_sample(ADPCMChannelStatus *c, short sample)
+static __inline unsigned char adpcm_ms_compress_sample(ADPCMChannelStatus *c, short sample)
 {
     int predictor, nibble, bias;
 
@@ -256,7 +256,7 @@ static inline unsigned char adpcm_ms_compress_sample(ADPCMChannelStatus *c, shor
     return nibble;
 }
 
-static inline unsigned char adpcm_yamaha_compress_sample(ADPCMChannelStatus *c, short sample)
+static __inline unsigned char adpcm_yamaha_compress_sample(ADPCMChannelStatus *c, short sample)
 {
     int nibble, delta;
 
@@ -760,7 +760,7 @@ static av_cold int adpcm_decode_init(AVCodecContext * avctx)
     return 0;
 }
 
-static inline short adpcm_ima_expand_nibble(ADPCMChannelStatus *c, char nibble, int shift)
+static __inline short adpcm_ima_expand_nibble(ADPCMChannelStatus *c, char nibble, int shift)
 {
     int step_index;
     int predictor;
@@ -787,7 +787,7 @@ static inline short adpcm_ima_expand_nibble(ADPCMChannelStatus *c, char nibble, 
     return (short)c->predictor;
 }
 
-static inline short adpcm_ms_expand_nibble(ADPCMChannelStatus *c, char nibble)
+static __inline short adpcm_ms_expand_nibble(ADPCMChannelStatus *c, char nibble)
 {
     int predictor;
 
@@ -802,7 +802,7 @@ static inline short adpcm_ms_expand_nibble(ADPCMChannelStatus *c, char nibble)
     return c->sample1;
 }
 
-static inline short adpcm_ct_expand_nibble(ADPCMChannelStatus *c, char nibble)
+static __inline short adpcm_ct_expand_nibble(ADPCMChannelStatus *c, char nibble)
 {
     int sign, delta, diff;
     int new_step;
@@ -823,7 +823,7 @@ static inline short adpcm_ct_expand_nibble(ADPCMChannelStatus *c, char nibble)
     return (short)c->predictor;
 }
 
-static inline short adpcm_sbpro_expand_nibble(ADPCMChannelStatus *c, char nibble, int size, int shift)
+static __inline short adpcm_sbpro_expand_nibble(ADPCMChannelStatus *c, char nibble, int size, int shift)
 {
     int sign, delta, diff;
 
@@ -843,7 +843,7 @@ static inline short adpcm_sbpro_expand_nibble(ADPCMChannelStatus *c, char nibble
     return (short) c->predictor;
 }
 
-static inline short adpcm_yamaha_expand_nibble(ADPCMChannelStatus *c, unsigned char nibble)
+static __inline short adpcm_yamaha_expand_nibble(ADPCMChannelStatus *c, unsigned char nibble)
 {
     if(!c->step) {
         c->predictor = 0;

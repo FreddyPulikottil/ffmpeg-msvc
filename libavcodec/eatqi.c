@@ -71,7 +71,7 @@ static void tqi_decode_mb(MpegEncContext *s, DCTELEM (*block)[64])
         ff_mpeg1_decode_block_intra(s, block[n], n);
 }
 
-static inline void tqi_idct_put(TqiContext *t, DCTELEM (*block)[64])
+static __inline void tqi_idct_put(TqiContext *t, DCTELEM (*block)[64])
 {
     MpegEncContext *s = &t->s;
     int linesize= t->frame.linesize[0];

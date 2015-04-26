@@ -113,7 +113,7 @@ extern const struct ogg_codec ff_vorbis_codec;
 
 int ff_vorbis_comment(AVFormatContext *ms, AVMetadata **m, const uint8_t *buf, int size);
 
-static inline int
+static __inline int
 ogg_find_stream (struct ogg * ogg, int serial)
 {
     int i;
@@ -125,7 +125,7 @@ ogg_find_stream (struct ogg * ogg, int serial)
     return -1;
 }
 
-static inline uint64_t
+static __inline uint64_t
 ogg_gptopts (AVFormatContext * s, int i, uint64_t gp, int64_t *dts)
 {
     struct ogg *ogg = s->priv_data;

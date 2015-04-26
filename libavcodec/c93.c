@@ -62,7 +62,7 @@ static av_cold int decode_end(AVCodecContext *avctx)
     return 0;
 }
 
-static inline int copy_block(AVCodecContext *avctx, uint8_t *to,
+static __inline int copy_block(AVCodecContext *avctx, uint8_t *to,
         uint8_t *from, int offset, int height, int stride)
 {
     int i;
@@ -96,7 +96,7 @@ static inline int copy_block(AVCodecContext *avctx, uint8_t *to,
     return 0;
 }
 
-static inline void draw_n_color(uint8_t *out, int stride, int width,
+static __inline void draw_n_color(uint8_t *out, int stride, int width,
          int height, int bpp, uint8_t cols[4], uint8_t grps[4], uint32_t col)
 {
     int x, y;

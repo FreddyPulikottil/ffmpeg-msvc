@@ -133,7 +133,7 @@ static int wma_decode_init(AVCodecContext * avctx)
  * expense (linear interpolation approximately doubles the number of
  * bits of precision).
  */
-static inline float pow_m1_4(WMACodecContext *s, float x)
+static __inline float pow_m1_4(WMACodecContext *s, float x)
 {
     union {
         float f;

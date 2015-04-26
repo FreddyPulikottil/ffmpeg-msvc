@@ -307,7 +307,7 @@ static av_cold void init_cplscales_table (COOKContext *q) {
 #define DECODE_BYTES_PAD1(bytes) (3 - ((bytes)+3) % 4)
 #define DECODE_BYTES_PAD2(bytes) ((bytes) % 4 + DECODE_BYTES_PAD1(2 * (bytes)))
 
-static inline int decode_bytes(const uint8_t* inbuffer, uint8_t* out, int bytes){
+static __inline int decode_bytes(const uint8_t* inbuffer, uint8_t* out, int bytes){
     int i, off;
     uint32_t c;
     const uint32_t* buf;
@@ -525,7 +525,7 @@ static void categorize(COOKContext *q, COOKSubpacket *p, int* quant_index_table,
  * @param category_index        pointer to the category_index array
  */
 
-static inline void expand_category(COOKContext *q, int* category,
+static __inline void expand_category(COOKContext *q, int* category,
                                    int* category_index){
     int i;
     for(i=0 ; i<q->num_vectors ; i++){
@@ -880,7 +880,7 @@ static void joint_decode(COOKContext *q, COOKSubpacket *p, float* mlt_buffer1,
  * @param gain_ptr          array of current/prev gain pointers
  */
 
-static inline void
+static __inline void
 decode_bytes_and_gain(COOKContext *q, COOKSubpacket *p, const uint8_t *inbuffer,
                       cook_gains *gains_ptr)
 {
@@ -929,7 +929,7 @@ saturate_output_float (COOKContext *q, int chan, int16_t *out)
  * @param chan              0: left or single channel, 1: right channel
  */
 
-static inline void
+static __inline void
 mlt_compensate_output(COOKContext *q, float *decode_buffer,
                       cook_gains *gains, float *previous_buffer,
                       int16_t *out, int chan)

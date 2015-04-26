@@ -21,7 +21,7 @@
 #include "libavutil/attributes.h"
 #include "libavutil/cpu.h"
 #include "libavutil/float_dsp.h"
-#include "cpu.h"
+#include "cpu_x86.h"
 #include "asm.h"
 
 void ff_vector_fmul_sse(float *dst, const float *src0, const float *src1,

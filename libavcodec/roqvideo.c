@@ -27,7 +27,7 @@
 #include "avcodec.h"
 #include "roqvideo.h"
 
-static inline void block_copy(unsigned char *out, unsigned char *in,
+static __inline void block_copy(unsigned char *out, unsigned char *in,
                               int outstride, int instride, int sz)
 {
     int rows = sz;
@@ -99,7 +99,7 @@ void ff_apply_vector_4x4(RoqContext *ri, int x, int y, roq_cell *cell)
 }
 
 
-static inline void apply_motion_generic(RoqContext *ri, int x, int y, int deltax,
+static __inline void apply_motion_generic(RoqContext *ri, int x, int y, int deltax,
                                         int deltay, int sz)
 {
     int mx, my, cp;

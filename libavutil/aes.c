@@ -67,21 +67,21 @@ static uint32_t dec_multbl[4][256];
 #   define ROT(x, s) (((x) << (s)) | ((x) >> (32-(s))))
 #endif
 
-static inline void addkey(av_aes_block *dst, const av_aes_block *src,
+static __inline void addkey(av_aes_block *dst, const av_aes_block *src,
                           const av_aes_block *round_key)
 {
     dst->u64[0] = src->u64[0] ^ round_key->u64[0];
     dst->u64[1] = src->u64[1] ^ round_key->u64[1];
 }
 
-static inline void addkey_s(av_aes_block *dst, const uint8_t *src,
+static __inline void addkey_s(av_aes_block *dst, const uint8_t *src,
                             const av_aes_block *round_key)
 {
     dst->u64[0] = AV_RN64(src)     ^ round_key->u64[0];
     dst->u64[1] = AV_RN64(src + 8) ^ round_key->u64[1];
 }
 
-static inline void addkey_d(uint8_t *dst, const av_aes_block *src,
+static __inline void addkey_d(uint8_t *dst, const av_aes_block *src,
                             const av_aes_block *round_key)
 {
     AV_WN64(dst,     src->u64[0] ^ round_key->u64[0]);
@@ -111,7 +111,7 @@ static void subshift(av_aes_block s0[2], int s, const uint8_t *box)
     s3[0].u8[ 5] = box[s3[1].u8[ 1]];
 }
 
-static inline int mix_core(uint32_t multbl[][256], int a, int b, int c, int d){
+static __inline int mix_core(uint32_t multbl[][256], int a, int b, int c, int d){
 #if CONFIG_SMALL
     return multbl[0][a] ^ ROT(multbl[0][b], 8) ^ ROT(multbl[0][c], 16) ^ ROT(multbl[0][d], 24);
 #else
@@ -119,7 +119,7 @@ static inline int mix_core(uint32_t multbl[][256], int a, int b, int c, int d){
 #endif
 }
 
-static inline void mix(av_aes_block state[2], uint32_t multbl[][256], int s1, int s3){
+static __inline void mix(av_aes_block state[2], uint32_t multbl[][256], int s1, int s3){
     uint8_t (*src)[4] = state[1].u8x4;
     state[0].u32[0] = mix_core(multbl, src[0][0], src[s1  ][1], src[2][2], src[s3  ][3]);
     state[0].u32[1] = mix_core(multbl, src[1][0], src[s3-1][1], src[3][2], src[s1-1][3]);
@@ -127,7 +127,7 @@ static inline void mix(av_aes_block state[2], uint32_t multbl[][256], int s1, in
     state[0].u32[3] = mix_core(multbl, src[3][0], src[s1-1][1], src[1][2], src[s3-1][3]);
 }
 
-static inline void aes_crypt(AVAES *a, int s, const uint8_t *sbox,
+static __inline void aes_crypt(AVAES *a, int s, const uint8_t *sbox,
                          uint32_t multbl[][256])
 {
     int r;

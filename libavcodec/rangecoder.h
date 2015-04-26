@@ -48,7 +48,7 @@ void ff_init_range_decoder(RangeCoder *c, const uint8_t *buf, int buf_size);
 int ff_rac_terminate(RangeCoder *c);
 void ff_build_rac_states(RangeCoder *c, int factor, int max_p);
 
-static inline void renorm_encoder(RangeCoder *c){
+static __inline void renorm_encoder(RangeCoder *c){
     //FIXME optimize
     while(c->range < 0x100){
         if(c->outstanding_byte < 0){
@@ -72,14 +72,14 @@ static inline void renorm_encoder(RangeCoder *c){
     }
 }
 
-static inline int get_rac_count(RangeCoder *c){
+static __inline int get_rac_count(RangeCoder *c){
     int x= c->bytestream - c->bytestream_start + c->outstanding_count;
     if(c->outstanding_byte >= 0)
         x++;
     return 8*x - av_log2(c->range);
 }
 
-static inline void put_rac(RangeCoder *c, uint8_t * const state, int bit){
+static __inline void put_rac(RangeCoder *c, uint8_t * const state, int bit){
     int range1= (c->range * (*state)) >> 8;
 
     assert(*state);
@@ -97,7 +97,7 @@ static inline void put_rac(RangeCoder *c, uint8_t * const state, int bit){
     renorm_encoder(c);
 }
 
-static inline void refill(RangeCoder *c){
+static __inline void refill(RangeCoder *c){
     if(c->range < 0x100){
         c->range <<= 8;
         c->low <<= 8;
@@ -107,7 +107,7 @@ static inline void refill(RangeCoder *c){
     }
 }
 
-static inline int get_rac(RangeCoder *c, uint8_t * const state){
+static __inline int get_rac(RangeCoder *c, uint8_t * const state){
     int range1= (c->range * (*state)) >> 8;
     int av_unused one_mask;
 

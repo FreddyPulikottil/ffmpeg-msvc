@@ -467,7 +467,7 @@ static int read_dcs(AVCodecContext *avctx, GetBitContext *gb, Bundle *b,
  * @param c      decoder context
  * @param bundle bundle number
  */
-static inline int get_value(BinkContext *c, int bundle)
+static __inline int get_value(BinkContext *c, int bundle)
 {
     int16_t ret;
 

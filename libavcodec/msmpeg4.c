@@ -666,7 +666,7 @@ void msmpeg4_encode_mb(MpegEncContext * s,
 
 #endif //CONFIG_ENCODERS
 
-static inline int msmpeg4v1_pred_dc(MpegEncContext * s, int n,
+static __inline int msmpeg4v1_pred_dc(MpegEncContext * s, int n,
                                     int32_t **dc_val_ptr)
 {
     int i;
@@ -695,7 +695,7 @@ static int get_dc(uint8_t *src, int stride, int scale)
 }
 
 /* dir = 0: left, dir = 1: top prediction */
-static inline int msmpeg4_pred_dc(MpegEncContext * s, int n,
+static __inline int msmpeg4_pred_dc(MpegEncContext * s, int n,
                              int16_t **dc_val_ptr, int *dir_ptr)
 {
     int a, b, c, wrap, pred, scale;

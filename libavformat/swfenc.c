@@ -62,7 +62,7 @@ static void put_swf_end_tag(AVFormatContext *s)
     url_fseek(pb, pos, SEEK_SET);
 }
 
-static inline void max_nbits(int *nbits_ptr, int val)
+static __inline void max_nbits(int *nbits_ptr, int val)
 {
     int n;
 

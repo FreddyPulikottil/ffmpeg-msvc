@@ -71,7 +71,7 @@ const int ff_lzw_encode_state_size = sizeof(LZWEncodeState);
  * @param add Character to add
  * @return New hash value
  */
-static inline int hash(int head, const int add)
+static __inline int hash(int head, const int add)
 {
     head ^= (add << LZW_HASH_SHIFT);
     if (head >= LZW_HASH_SIZE)
@@ -86,7 +86,7 @@ static inline int hash(int head, const int add)
  * @param offset Offset calculated by hashOffset
  * @return New hash value
  */
-static inline int hashNext(int head, const int offset)
+static __inline int hashNext(int head, const int offset)
 {
     head -= offset;
     if(head < 0)
@@ -99,7 +99,7 @@ static inline int hashNext(int head, const int offset)
  * @param head Actual hash code
  * @return Hash offset
  */
-static inline int hashOffset(const int head)
+static __inline int hashOffset(const int head)
 {
     return head ? LZW_HASH_SIZE - head : 1;
 }
@@ -109,7 +109,7 @@ static inline int hashOffset(const int head)
  * @param s LZW state
  * @param c code to write
  */
-static inline void writeCode(LZWEncodeState * s, int c)
+static __inline void writeCode(LZWEncodeState * s, int c)
 {
     assert(0 <= c && c < 1 << s->bits);
     s->put_bits(&s->pb, s->bits, c);
@@ -123,7 +123,7 @@ static inline void writeCode(LZWEncodeState * s, int c)
  * @param hash_prefix LZW code for prefix
  * @return LZW code for block or -1 if not found in table
  */
-static inline int findCode(LZWEncodeState * s, uint8_t c, int hash_prefix)
+static __inline int findCode(LZWEncodeState * s, uint8_t c, int hash_prefix)
 {
     int h = hash(FFMAX(hash_prefix, 0), c);
     int hash_offset = hashOffset(h);
@@ -145,7 +145,7 @@ static inline int findCode(LZWEncodeState * s, uint8_t c, int hash_prefix)
  * @param hash_prefix LZW code for prefix
  * @param hash_code LZW code for bytes block
  */
-static inline void addCode(LZWEncodeState * s, uint8_t c, int hash_prefix, int hash_code)
+static __inline void addCode(LZWEncodeState * s, uint8_t c, int hash_prefix, int hash_code)
 {
     s->tab[hash_code].code = s->tabsize;
     s->tab[hash_code].suffix = c;

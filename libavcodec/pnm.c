@@ -22,7 +22,7 @@
 #include "avcodec.h"
 #include "pnm.h"
 
-static inline int pnm_space(int c)
+static __inline int pnm_space(int c)
 {
     return c == ' ' || c == '\n' || c == '\r' || c == '\t';
 }

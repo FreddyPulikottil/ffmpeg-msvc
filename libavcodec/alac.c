@@ -138,7 +138,7 @@ static int alac_set_info(ALACContext *alac)
     return 0;
 }
 
-static inline int decode_scalar(GetBitContext *gb, int k, int limit, int readsamplesize){
+static __inline int decode_scalar(GetBitContext *gb, int k, int limit, int readsamplesize){
     /* read x - number of 1s before 0 represent the rice */
     int x = get_unary_0_9(gb);
 
@@ -234,7 +234,7 @@ static void bastardized_rice_decompress(ALACContext *alac,
     }
 }
 
-static inline int sign_only(int v)
+static __inline int sign_only(int v)
 {
     return v ? FFSIGN(v) : 0;
 }

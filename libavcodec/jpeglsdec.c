@@ -87,7 +87,7 @@ int ff_jpegls_decode_lse(MJpegDecodeContext *s)
 /**
  * Get context-dependent Golomb code, decode it and update context
  */
-static inline int ls_get_code_regular(GetBitContext *gb, JLSState *state, int Q){
+static __inline int ls_get_code_regular(GetBitContext *gb, JLSState *state, int Q){
     int k, ret;
 
     for(k = 0; (state->N[Q] << k) < state->A[Q]; k++);
@@ -115,7 +115,7 @@ static inline int ls_get_code_regular(GetBitContext *gb, JLSState *state, int Q)
 /**
  * Get Golomb code, decode it and update state for run termination
  */
-static inline int ls_get_code_runterm(GetBitContext *gb, JLSState *state, int RItype, int limit_add){
+static __inline int ls_get_code_runterm(GetBitContext *gb, JLSState *state, int RItype, int limit_add){
     int k, ret, temp, map;
     int Q = 365 + RItype;
 
@@ -154,7 +154,7 @@ static inline int ls_get_code_runterm(GetBitContext *gb, JLSState *state, int RI
 /**
  * Decode one line of image
  */
-static inline void ls_decode_line(JLSState *state, MJpegDecodeContext *s, void *last, void *dst, int last2, int w, int stride, int comp, int bits){
+static __inline void ls_decode_line(JLSState *state, MJpegDecodeContext *s, void *last, void *dst, int last2, int w, int stride, int comp, int bits){
     int i, x = 0;
     int Ra, Rb, Rc, Rd;
     int D0, D1, D2;

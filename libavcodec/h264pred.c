@@ -484,7 +484,7 @@ static void pred16x16_128_dc_c(uint8_t *src, int stride){
     }
 }
 
-static inline void pred16x16_plane_compat_c(uint8_t *src, int stride, const int svq3, const int rv40){
+static __inline void pred16x16_plane_compat_c(uint8_t *src, int stride, const int svq3, const int rv40){
   int i, j, k;
   int a;
   uint8_t *cm = ff_cropTbl + MAX_NEG_CROP;

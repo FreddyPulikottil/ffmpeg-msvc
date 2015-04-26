@@ -160,7 +160,7 @@ typedef struct MACEContext {
  * MACE version of av_clip_int16(). We have to do this to keep binary
  * identical output to the binary decoder.
  */
-static inline int16_t mace_broken_clip_int16(int n)
+static __inline int16_t mace_broken_clip_int16(int n)
 {
     if (n > 32767)
         return 32767;

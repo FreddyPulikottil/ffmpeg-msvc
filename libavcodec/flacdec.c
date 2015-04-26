@@ -213,7 +213,7 @@ void ff_flac_parse_block_header(const uint8_t *block_header,
 }
 
 /**
- * Parse the STREAMINFO from an inline header.
+ * Parse the STREAMINFO from an __inline header.
  * @param s the flac decoding context
  * @param buf input buffer, starting with the "fLaC" marker
  * @param buf_size buffer size
@@ -240,7 +240,7 @@ static int parse_streaminfo(FLACContext *s, const uint8_t *buf, int buf_size)
 }
 
 /**
- * Determine the size of an inline header.
+ * Determine the size of an __inline header.
  * @param buf input buffer, starting with the "fLaC" marker
  * @param buf_size buffer size
  * @return number of bytes in the header, or 0 if more data is needed
@@ -421,7 +421,7 @@ static int decode_subframe_lpc(FLACContext *s, int channel, int pred_order)
     return 0;
 }
 
-static inline int decode_subframe(FLACContext *s, int channel)
+static __inline int decode_subframe(FLACContext *s, int channel)
 {
     int type, wasted = 0;
     int i, tmp;
@@ -687,7 +687,7 @@ static int flac_decode_frame(AVCodecContext *avctx,
     if (buf_size < 11)
         goto end;
 
-    /* check for inline header */
+    /* check for __inline header */
     if (AV_RB32(buf) == MKBETAG('f','L','a','C')) {
         if (!s->got_streaminfo && parse_streaminfo(s, buf, buf_size)) {
             av_log(s->avctx, AV_LOG_ERROR, "invalid header\n");

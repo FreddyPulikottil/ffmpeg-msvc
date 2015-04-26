@@ -182,7 +182,7 @@ typedef struct {
 } IVIPicConfig;
 
 /** compares some properties of two pictures */
-static inline int ivi_pic_config_cmp(IVIPicConfig *str1, IVIPicConfig *str2)
+static __inline int ivi_pic_config_cmp(IVIPicConfig *str1, IVIPicConfig *str2)
 {
     return (str1->pic_width    != str2->pic_width    || str1->pic_height    != str2->pic_height    ||
             str1->chroma_width != str2->chroma_width || str1->chroma_height != str2->chroma_height ||
@@ -201,7 +201,7 @@ static inline int ivi_pic_config_cmp(IVIPicConfig *str1, IVIPicConfig *str2)
 #define IVI_TOSIGNED(val) (-(((val) >> 1) ^ -((val) & 1)))
 
 /** scales motion vector */
-static inline int ivi_scale_mv(int mv, int mv_scale)
+static __inline int ivi_scale_mv(int mv, int mv_scale)
 {
     return (mv + (mv > 0) + (mv_scale - 1)) >> mv_scale;
 }

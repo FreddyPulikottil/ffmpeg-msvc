@@ -284,7 +284,7 @@ static int decode_gop_header(IVI5DecContext *ctx, AVCodecContext *avctx)
  *
  *  @param gb   [in,out] the GetBit context
  */
-static inline void skip_hdr_extension(GetBitContext *gb)
+static __inline void skip_hdr_extension(GetBitContext *gb)
 {
     int i, len;
 

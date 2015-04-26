@@ -280,7 +280,7 @@ static void interpolate(float *out, float v1, float v2, int size)
     }
 }
 
-static inline float get_cos(int idx, int part, const float *cos_tab, int size)
+static __inline float get_cos(int idx, int part, const float *cos_tab, int size)
 {
     return part ? -cos_tab[size - idx - 1] :
                    cos_tab[       idx    ];
@@ -300,7 +300,7 @@ static inline float get_cos(int idx, int part, const float *cos_tab, int size)
           (negative cossinus values)
  * @param size the size of the whole output
  */
-static inline void eval_lpcenv_or_interp(TwinContext *tctx,
+static __inline void eval_lpcenv_or_interp(TwinContext *tctx,
                                          enum FrameType ftype,
                                          float *out, const float *in,
                                          int size, int step, int part)
@@ -395,7 +395,7 @@ static void dequant(TwinContext *tctx, GetBitContext *gb, float *out,
 
 }
 
-static inline float mulawinv(float y, float clip, float mu)
+static __inline float mulawinv(float y, float clip, float mu)
 {
     y = av_clipf(y/clip, -1, 1);
     return clip * FFSIGN(y) * (exp(log(1+mu) * fabs(y)) - 1) / mu;

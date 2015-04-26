@@ -404,7 +404,7 @@ uint64_t get_be64(ByteIOContext *s);
 
 uint64_t ff_get_v(ByteIOContext *bc);
 
-static inline int url_is_streamed(ByteIOContext *s)
+static __inline int url_is_streamed(ByteIOContext *s)
 {
     return s->is_streamed;
 }

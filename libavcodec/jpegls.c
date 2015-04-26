@@ -51,7 +51,7 @@ void ff_jpegls_init_state(JLSState *state){
 /**
  * Custom value clipping function used in T1, T2, T3 calculation
  */
-static inline int iso_clip(int v, int vmin, int vmax){
+static __inline int iso_clip(int v, int vmin, int vmax){
     if(v > vmax || v < vmin) return vmin;
     else                     return v;
 }

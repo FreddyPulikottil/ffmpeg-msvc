@@ -47,12 +47,12 @@
 #define P_MEDIAN P[4]
 #define P_MV1 P[9]
 
-static inline int sad_hpel_motion_search(MpegEncContext * s,
+static __inline int sad_hpel_motion_search(MpegEncContext * s,
                                   int *mx_ptr, int *my_ptr, int dmin,
                                   int src_index, int ref_index,
                                   int size, int h);
 
-static inline int update_map_generation(MotionEstContext *c)
+static __inline int update_map_generation(MotionEstContext *c)
 {
     c->map_generation+= 1<<(ME_MAP_MV_BITS*2);
     if(c->map_generation==0){
@@ -80,7 +80,7 @@ static int minima_cmp(const void *a, const void *b){
 #define FLAG_CHROMA 2
 #define FLAG_DIRECT 4
 
-static inline void init_ref(MotionEstContext *c, uint8_t *src[3], uint8_t *ref[3], uint8_t *ref2[3], int x, int y, int ref_index){
+static __inline void init_ref(MotionEstContext *c, uint8_t *src[3], uint8_t *ref[3], uint8_t *ref2[3], int x, int y, int ref_index){
     const int offset[3]= {
           y*c->  stride + x,
         ((y*c->uvstride + x)>>1),
@@ -398,7 +398,7 @@ static int pix_dev(uint8_t * pix, int line_size, int mean)
 }
 #endif
 
-static inline void no_motion_search(MpegEncContext * s,
+static __inline void no_motion_search(MpegEncContext * s,
                                     int *mx_ptr, int *my_ptr)
 {
     *mx_ptr = 16 * s->mb_x;
@@ -414,7 +414,7 @@ static inline void no_motion_search(MpegEncContext * s,
     COPY3_IF_LT(dminh, d, dx, x, dy, y)\
 }
 
-static inline int sad_hpel_motion_search(MpegEncContext * s,
+static __inline int sad_hpel_motion_search(MpegEncContext * s,
                                   int *mx_ptr, int *my_ptr, int dmin,
                                   int src_index, int ref_index,
                                   int size, int h)
@@ -522,7 +522,7 @@ static inline int sad_hpel_motion_search(MpegEncContext * s,
     return dminh;
 }
 
-static inline void set_p_mv_tables(MpegEncContext * s, int mx, int my, int mv4)
+static __inline void set_p_mv_tables(MpegEncContext * s, int mx, int my, int mv4)
 {
     const int xy= s->mb_x + s->mb_y*s->mb_stride;
 
@@ -549,7 +549,7 @@ static inline void set_p_mv_tables(MpegEncContext * s, int mx, int my, int mv4)
 /**
  * get fullpel ME search limits.
  */
-static inline void get_limits(MpegEncContext *s, int x, int y)
+static __inline void get_limits(MpegEncContext *s, int x, int y)
 {
     MotionEstContext * const c= &s->me;
     int range= c->avctx->me_range >> (1 + !!(c->flags&FLAG_QPEL));
@@ -582,7 +582,7 @@ static inline void get_limits(MpegEncContext *s, int x, int y)
     }
 }
 
-static inline void init_mv4_ref(MotionEstContext *c){
+static __inline void init_mv4_ref(MotionEstContext *c){
     const int stride= c->stride;
 
     c->ref[1][0] = c->ref[0][0] + 8;
@@ -593,7 +593,7 @@ static inline void init_mv4_ref(MotionEstContext *c){
     c->src[3][0] = c->src[2][0] + 8;
 }
 
-static inline int h263_mv4_search(MpegEncContext *s, int mx, int my, int shift)
+static __inline int h263_mv4_search(MpegEncContext *s, int mx, int my, int shift)
 {
     MotionEstContext * const c= &s->me;
     const int size= 1;
@@ -729,7 +729,7 @@ static inline int h263_mv4_search(MpegEncContext *s, int mx, int my, int shift)
     }
 }
 
-static inline void init_interlaced_ref(MpegEncContext *s, int ref_index){
+static __inline void init_interlaced_ref(MpegEncContext *s, int ref_index){
     MotionEstContext * const c= &s->me;
 
     c->ref[1+ref_index][0] = c->ref[0+ref_index][0] + s->linesize;
@@ -874,7 +874,7 @@ static void clip_input_mv(MpegEncContext * s, int16_t *mv, int interlaced){
     if(mv[1] >       ymax) mv[1] =       ymax;
 }
 
-static inline int check_input_motion(MpegEncContext * s, int mb_x, int mb_y, int p_type){
+static __inline int check_input_motion(MpegEncContext * s, int mb_x, int mb_y, int p_type){
     MotionEstContext * const c= &s->me;
     Picture *p= s->current_picture_ptr;
     int mb_xy= mb_x + mb_y*s->mb_stride;
@@ -1389,7 +1389,7 @@ static int ff_estimate_motion_b(MpegEncContext * s,
     return dmin;
 }
 
-static inline int check_bidir_mv(MpegEncContext * s,
+static __inline int check_bidir_mv(MpegEncContext * s,
                    int motion_fx, int motion_fy,
                    int motion_bx, int motion_by,
                    int pred_fx, int pred_fy,
@@ -1454,7 +1454,7 @@ static inline int check_bidir_mv(MpegEncContext * s,
 }
 
 /* refine the bidir vectors in hq mode and return the score in both lq & hq mode*/
-static inline int bidir_refine(MpegEncContext * s, int mb_x, int mb_y)
+static __inline int bidir_refine(MpegEncContext * s, int mb_x, int mb_y)
 {
     MotionEstContext * const c= &s->me;
     const int mot_stride = s->mb_stride;
@@ -1601,7 +1601,7 @@ CHECK_BIDIR(-(a),-(b),-(c),-(d))
     return fbmin;
 }
 
-static inline int direct_search(MpegEncContext * s, int mb_x, int mb_y)
+static __inline int direct_search(MpegEncContext * s, int mb_x, int mb_y)
 {
     MotionEstContext * const c= &s->me;
     int P[10][2];

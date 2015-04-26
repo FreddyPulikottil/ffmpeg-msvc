@@ -107,12 +107,12 @@ static void enlarge_roq_mb4(uint8_t base[3*16], uint8_t u[3*64])
                 *u++ = base[(y/2)*4 + (x/2) + 16*cp];
 }
 
-static inline int square(int x)
+static __inline int square(int x)
 {
     return x*x;
 }
 
-static inline int eval_sse(uint8_t *a, uint8_t *b, int count)
+static __inline int eval_sse(uint8_t *a, uint8_t *b, int count)
 {
     int diff=0;
 
@@ -167,7 +167,7 @@ static int eval_motion_dist(RoqContext *enc, int x, int y, motion_vect vect,
 /**
  * Returns distortion between two macroblocks
  */
-static inline int squared_diff_macroblock(uint8_t a[], uint8_t b[], int size)
+static __inline int squared_diff_macroblock(uint8_t a[], uint8_t b[], int size)
 {
     int cp, sdiff=0;
 
@@ -594,7 +594,7 @@ static void write_codebooks(RoqContext *enc, RoqTempdata *tempData)
     }
 }
 
-static inline uint8_t motion_arg(motion_vect mot)
+static __inline uint8_t motion_arg(motion_vect mot)
 {
     uint8_t ax = 8 - ((uint8_t) mot.d[0]);
     uint8_t ay = 8 - ((uint8_t) mot.d[1]);
@@ -759,7 +759,7 @@ static void reconstruct_and_encode_image(RoqContext *enc, RoqTempdata *tempData,
 /**
  * Create a single YUV cell from a 2x2 section of the image
  */
-static inline void frame_block_to_cell(uint8_t *block, uint8_t **data,
+static __inline void frame_block_to_cell(uint8_t *block, uint8_t **data,
                                        int top, int left, int *stride)
 {
     int i, j, u=0, v=0;

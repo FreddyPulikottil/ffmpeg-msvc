@@ -752,11 +752,11 @@ static av_always_inline uint16_t pack8to16(int a, int b){
 /**
  * gets the chroma qp.
  */
-static inline int get_chroma_qp(H264Context *h, int t, int qscale){
+static __inline int get_chroma_qp(H264Context *h, int t, int qscale){
     return h->pps.chroma_qp_table[t][qscale];
 }
 
-static inline void pred_pskip_motion(H264Context * const h, int * const mx, int * const my);
+static __inline void pred_pskip_motion(H264Context * const h, int * const mx, int * const my);
 
 static void fill_decode_neighbors(H264Context *h, int mb_type){
     MpegEncContext * const s = &h->s;
@@ -1166,7 +1166,7 @@ static void fill_decode_caches(H264Context *h, int mb_type){
 /**
  * gets the predicted intra4x4 prediction mode.
  */
-static inline int pred_intra_mode(H264Context *h, int n){
+static __inline int pred_intra_mode(H264Context *h, int n){
     const int index8= scan8[n];
     const int left= h->intra4x4_pred_mode_cache[index8 - 1];
     const int top = h->intra4x4_pred_mode_cache[index8 - 8];
@@ -1178,7 +1178,7 @@ static inline int pred_intra_mode(H264Context *h, int n){
     else      return min;
 }
 
-static inline void write_back_non_zero_count(H264Context *h){
+static __inline void write_back_non_zero_count(H264Context *h){
     const int mb_xy= h->mb_xy;
 
     AV_COPY64(&h->non_zero_count[mb_xy][ 0], &h->non_zero_count_cache[0+8*1]);
@@ -1188,7 +1188,7 @@ static inline void write_back_non_zero_count(H264Context *h){
     AV_COPY64(&h->non_zero_count[mb_xy][24], &h->non_zero_count_cache[0+8*4]);
 }
 
-static inline void write_back_motion(H264Context *h, int mb_type){
+static __inline void write_back_motion(H264Context *h, int mb_type){
     MpegEncContext * const s = &h->s;
     const int b_xy = 4*s->mb_x + 4*s->mb_y*h->b_stride; //try mb2b(8)_xy
     const int b8_xy= 4*h->mb_xy;
@@ -1243,7 +1243,7 @@ static inline void write_back_motion(H264Context *h, int mb_type){
     }
 }
 
-static inline int get_dct8x8_allowed(H264Context *h){
+static __inline int get_dct8x8_allowed(H264Context *h){
     if(h->sps.direct_8x8_inference_flag)
         return !(AV_RN64A(h->sub_mb_type) & ((MB_TYPE_16x8|MB_TYPE_8x16|MB_TYPE_8x8                )*0x0001000100010001ULL));
     else

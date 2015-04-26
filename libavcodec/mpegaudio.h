@@ -164,7 +164,7 @@ void ff_mpa_synth_filter(MPA_INT *synth_buf_ptr, int *synth_buf_offset,
                          int32_t sb_samples[SBLIMIT]);
 
 /* fast header check for resync */
-static inline int ff_mpa_check_header(uint32_t header){
+static __inline int ff_mpa_check_header(uint32_t header){
     /* header */
     if ((header & 0xffe00000) != 0xffe00000)
         return -1;

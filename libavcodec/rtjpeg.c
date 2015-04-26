@@ -44,7 +44,7 @@
  * aligned this could be done faster in a different way, e.g. as it is done
  * in MPlayer libmpcodecs/native/rtjpegn.c.
  */
-static inline int get_block(GetBitContext *gb, DCTELEM *block, const uint8_t *scan,
+static __inline int get_block(GetBitContext *gb, DCTELEM *block, const uint8_t *scan,
                             const uint32_t *quant) {
     int coeff, i, n;
     int8_t ac;

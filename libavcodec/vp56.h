@@ -180,7 +180,7 @@ int vp56_decode_frame(AVCodecContext *avctx, void *data, int *data_size,
  * vp56 specific range coder implementation
  */
 
-static inline void vp56_init_range_decoder(VP56RangeCoder *c,
+static __inline void vp56_init_range_decoder(VP56RangeCoder *c,
                                            const uint8_t *buf, int buf_size)
 {
     c->high = 255;
@@ -190,7 +190,7 @@ static inline void vp56_init_range_decoder(VP56RangeCoder *c,
     c->code_word = bytestream_get_be16(&c->buffer);
 }
 
-static inline int vp56_rac_get_prob(VP56RangeCoder *c, uint8_t prob)
+static __inline int vp56_rac_get_prob(VP56RangeCoder *c, uint8_t prob)
 {
     unsigned int low = 1 + (((c->high - 1) * prob) / 256);
     unsigned int low_shift = low << 8;
@@ -215,7 +215,7 @@ static inline int vp56_rac_get_prob(VP56RangeCoder *c, uint8_t prob)
     return bit;
 }
 
-static inline int vp56_rac_get(VP56RangeCoder *c)
+static __inline int vp56_rac_get(VP56RangeCoder *c)
 {
     /* equiprobable */
     int low = (c->high + 1) >> 1;
@@ -237,7 +237,7 @@ static inline int vp56_rac_get(VP56RangeCoder *c)
     return bit;
 }
 
-static inline int vp56_rac_gets(VP56RangeCoder *c, int bits)
+static __inline int vp56_rac_gets(VP56RangeCoder *c, int bits)
 {
     int value = 0;
 
@@ -248,13 +248,13 @@ static inline int vp56_rac_gets(VP56RangeCoder *c, int bits)
     return value;
 }
 
-static inline int vp56_rac_gets_nn(VP56RangeCoder *c, int bits)
+static __inline int vp56_rac_gets_nn(VP56RangeCoder *c, int bits)
 {
     int v = vp56_rac_gets(c, 7) << 1;
     return v + !v;
 }
 
-static inline int vp56_rac_get_tree(VP56RangeCoder *c,
+static __inline int vp56_rac_get_tree(VP56RangeCoder *c,
                                     const VP56Tree *tree,
                                     const uint8_t *probs)
 {

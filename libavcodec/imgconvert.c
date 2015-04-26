@@ -1493,7 +1493,7 @@ void avpicture_free(AVPicture *picture)
 }
 
 /* return true if yuv planar */
-static inline int is_yuv_planar(const PixFmtInfo *ps)
+static __inline int is_yuv_planar(const PixFmtInfo *ps)
 {
     return (ps->color_type == FF_COLOR_YUV ||
             ps->color_type == FF_COLOR_YUV_JPEG) &&

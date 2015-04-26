@@ -53,7 +53,7 @@ void ff_jpegls_init_state(JLSState *state);
 /**
  * Calculate quantized gradient value, used for context determination
  */
-static inline int ff_jpegls_quantize(JLSState *s, int v){ //FIXME optimize
+static __inline int ff_jpegls_quantize(JLSState *s, int v){ //FIXME optimize
     if(v==0) return 0;
     if(v < 0){
         if(v <= -s->T3) return -4;
@@ -76,7 +76,7 @@ static inline int ff_jpegls_quantize(JLSState *s, int v){ //FIXME optimize
 void ff_jpegls_reset_coding_parameters(JLSState *s, int reset_all);
 
 
-static inline void ff_jpegls_downscale_state(JLSState *state, int Q){
+static __inline void ff_jpegls_downscale_state(JLSState *state, int Q){
     if(state->N[Q] == state->reset){
         state->A[Q] >>=1;
         state->B[Q] >>=1;
@@ -85,7 +85,7 @@ static inline void ff_jpegls_downscale_state(JLSState *state, int Q){
     state->N[Q]++;
 }
 
-static inline int ff_jpegls_update_state_regular(JLSState *state, int Q, int err){
+static __inline int ff_jpegls_update_state_regular(JLSState *state, int Q, int err){
     state->A[Q] += FFABS(err);
     err *= state->twonear;
     state->B[Q] += err;

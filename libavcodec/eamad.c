@@ -70,7 +70,7 @@ static av_cold int decode_init(AVCodecContext *avctx)
     return 0;
 }
 
-static inline void comp(unsigned char *dst, int dst_stride,
+static __inline void comp(unsigned char *dst, int dst_stride,
                         unsigned char *src, int src_stride, int add)
 {
     int j, i;
@@ -79,7 +79,7 @@ static inline void comp(unsigned char *dst, int dst_stride,
             dst[j*dst_stride + i] = av_clip_uint8(src[j*src_stride + i] + add);
 }
 
-static inline void comp_block(MadContext *t, int mb_x, int mb_y,
+static __inline void comp_block(MadContext *t, int mb_x, int mb_y,
                               int j, int mv_x, int mv_y, int add)
 {
     MpegEncContext *s = &t->s;
@@ -97,7 +97,7 @@ static inline void comp_block(MadContext *t, int mb_x, int mb_y,
     }
 }
 
-static inline void idct_put(MadContext *t, DCTELEM *block, int mb_x, int mb_y, int j)
+static __inline void idct_put(MadContext *t, DCTELEM *block, int mb_x, int mb_y, int j)
 {
     MpegEncContext *s = &t->s;
     if (j < 4) {
@@ -112,7 +112,7 @@ static inline void idct_put(MadContext *t, DCTELEM *block, int mb_x, int mb_y, i
     }
 }
 
-static inline void decode_block_intra(MadContext * t, DCTELEM * block)
+static __inline void decode_block_intra(MadContext * t, DCTELEM * block)
 {
     MpegEncContext *s = &t->s;
     int level, i, j, run;

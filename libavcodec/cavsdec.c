@@ -52,14 +52,14 @@ static const uint8_t cbp_tab[64][2] = {
  *
  ****************************************************************************/
 
-static inline void store_mvs(AVSContext *h) {
+static __inline void store_mvs(AVSContext *h) {
     h->col_mv[h->mbidx*4 + 0] = h->mv[MV_FWD_X0];
     h->col_mv[h->mbidx*4 + 1] = h->mv[MV_FWD_X1];
     h->col_mv[h->mbidx*4 + 2] = h->mv[MV_FWD_X2];
     h->col_mv[h->mbidx*4 + 3] = h->mv[MV_FWD_X3];
 }
 
-static inline void mv_pred_direct(AVSContext *h, cavs_vector *pmv_fw,
+static __inline void mv_pred_direct(AVSContext *h, cavs_vector *pmv_fw,
                                   cavs_vector *col_mv) {
     cavs_vector *pmv_bw = pmv_fw + MV_BWD_OFFS;
     int den = h->direct_den[col_mv->ref];
@@ -77,7 +77,7 @@ static inline void mv_pred_direct(AVSContext *h, cavs_vector *pmv_fw,
     pmv_bw->y = m-(((den+(den*col_mv->y*pmv_bw->dist^m)-m-1)>>14)^m);
 }
 
-static inline void mv_pred_sym(AVSContext *h, cavs_vector *src, enum cavs_block size) {
+static __inline void mv_pred_sym(AVSContext *h, cavs_vector *src, enum cavs_block size) {
     cavs_vector *dst = src + MV_BWD_OFFS;
 
     /* backward mv is the scaled and negated forward mv */
@@ -95,7 +95,7 @@ static inline void mv_pred_sym(AVSContext *h, cavs_vector *src, enum cavs_block 
  ****************************************************************************/
 
 /** kth-order exponential golomb code */
-static inline int get_ue_code(GetBitContext *gb, int order) {
+static __inline int get_ue_code(GetBitContext *gb, int order) {
     if(order) {
         int ret = get_ue_golomb(gb) << order;
         return ret + get_bits(gb,order);
@@ -149,7 +149,7 @@ static int decode_residual_block(AVSContext *h, GetBitContext *gb,
 }
 
 
-static inline void decode_residual_chroma(AVSContext *h) {
+static __inline void decode_residual_chroma(AVSContext *h) {
     if(h->cbp & (1<<4))
         decode_residual_block(h,&h->s.gb,ff_cavs_chroma_dec,0,
                               ff_cavs_chroma_qp[h->qp],h->cu,h->c_stride);
@@ -158,7 +158,7 @@ static inline void decode_residual_chroma(AVSContext *h) {
                               ff_cavs_chroma_qp[h->qp],h->cv,h->c_stride);
 }
 
-static inline int decode_residual_inter(AVSContext *h) {
+static __inline int decode_residual_inter(AVSContext *h) {
     int block;
 
     /* get coded block pattern */
@@ -411,7 +411,7 @@ static void decode_mb_b(AVSContext *h, enum cavs_mb mb_type) {
  *
  ****************************************************************************/
 
-static inline int decode_slice_header(AVSContext *h, GetBitContext *gb) {
+static __inline int decode_slice_header(AVSContext *h, GetBitContext *gb) {
     if(h->stc > 0xAF)
         av_log(h->s.avctx, AV_LOG_ERROR, "unexpected start code 0x%02x\n", h->stc);
     h->mby = h->stc;
@@ -432,7 +432,7 @@ static inline int decode_slice_header(AVSContext *h, GetBitContext *gb) {
     return 0;
 }
 
-static inline int check_for_slice(AVSContext *h) {
+static __inline int check_for_slice(AVSContext *h) {
     GetBitContext *gb = &h->s.gb;
     int align;
 

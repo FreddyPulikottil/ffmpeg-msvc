@@ -68,7 +68,7 @@ typedef struct DVVideoContext {
 /* XXX: also include quantization */
 static RL_VLC_ELEM dv_rl_vlc[1184];
 
-static inline int dv_work_pool_size(const DVprofile *d)
+static __inline int dv_work_pool_size(const DVprofile *d)
 {
     int size = d->n_difchan*d->difseg_size*27;
     if (DV_PROFILE_IS_1080i50(d))
@@ -78,7 +78,7 @@ static inline int dv_work_pool_size(const DVprofile *d)
     return size;
 }
 
-static inline void dv_calc_mb_coordinates(const DVprofile *d, int chan, int seq, int slot,
+static __inline void dv_calc_mb_coordinates(const DVprofile *d, int chan, int seq, int slot,
                                           uint16_t *tbl)
 {
     static const uint8_t off[] = { 2, 6, 8, 0, 4 };
@@ -375,7 +375,7 @@ static const int vs_total_ac_bits = (100 * 4 + 68*2) * 5;
 /* see dv_88_areas and dv_248_areas for details */
 static const int mb_area_start[5] = { 1, 6, 21, 43, 64 };
 
-static inline int put_bits_left(PutBitContext* s)
+static __inline int put_bits_left(PutBitContext* s)
 {
     return (s->buf_end - s->buf) * 8 - put_bits_count(s);
 }
@@ -442,7 +442,7 @@ static void dv_decode_ac(GetBitContext *gb, BlockInfo *mb, DCTELEM *block)
     mb->pos = pos;
 }
 
-static inline void bit_copy(PutBitContext *pb, GetBitContext *gb)
+static __inline void bit_copy(PutBitContext *pb, GetBitContext *gb)
 {
     int bits_left = get_bits_left(gb);
     while (bits_left >= MIN_CACHE_BITS) {
@@ -454,7 +454,7 @@ static inline void bit_copy(PutBitContext *pb, GetBitContext *gb)
     }
 }
 
-static inline void dv_calculate_mb_xy(DVVideoContext *s, DVwork_chunk *work_chunk, int m, int *mb_x, int *mb_y)
+static __inline void dv_calculate_mb_xy(DVVideoContext *s, DVwork_chunk *work_chunk, int m, int *mb_x, int *mb_y)
 {
      *mb_x = work_chunk->mb_coordinates[m] & 0xff;
      *mb_y = work_chunk->mb_coordinates[m] >> 8;
@@ -871,7 +871,7 @@ static av_always_inline int dv_init_enc_block(EncBlockInfo* bi, uint8_t *data, i
     return bi->bit_size[0] + bi->bit_size[1] + bi->bit_size[2] + bi->bit_size[3];
 }
 
-static inline void dv_guess_qnos(EncBlockInfo* blks, int* qnos)
+static __inline void dv_guess_qnos(EncBlockInfo* blks, int* qnos)
 {
     int size[5];
     int i, j, k, a, prev, a2;
@@ -1119,7 +1119,7 @@ static int dvvideo_decode_frame(AVCodecContext *avctx,
 #endif /* CONFIG_DVVIDEO_DECODER */
 
 
-static inline int dv_write_pack(enum dv_pack_type pack_id, DVVideoContext *c,
+static __inline int dv_write_pack(enum dv_pack_type pack_id, DVVideoContext *c,
                                 uint8_t* buf)
 {
     /*

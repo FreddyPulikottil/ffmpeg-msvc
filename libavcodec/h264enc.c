@@ -180,7 +180,7 @@ static const int quant_coeff[52][16] = {
 
 //FIXME need to check that this does not overflow signed 32 bit for low qp, I am not sure, it's very close
 //FIXME check that gcc inlines this (and optimizes intra & separate_dc stuff away)
-static inline int quantize_c(DCTELEM *block, uint8_t *scantable, int qscale,
+static __inline int quantize_c(DCTELEM *block, uint8_t *scantable, int qscale,
                              int intra, int separate_dc)
 {
     int i;

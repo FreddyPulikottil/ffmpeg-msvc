@@ -318,7 +318,7 @@ static av_cold void dca_init_vlcs(void)
     vlcs_initialized = 1;
 }
 
-static inline void get_array(GetBitContext *gb, int *dst, int len, int bits)
+static __inline void get_array(GetBitContext *gb, int *dst, int len, int bits)
 {
     while(len--)
         *dst++ = get_bits(gb, bits);
@@ -491,7 +491,7 @@ static int dca_parse_frame_header(DCAContext * s)
 }
 
 
-static inline int get_scale(GetBitContext *gb, int level, int value)
+static __inline int get_scale(GetBitContext *gb, int level, int value)
 {
    if (level < 5) {
        /* huffman encoded */

@@ -76,7 +76,7 @@ static int16_t xsin1[128];
 /* new exponents are sent if their Norm 1 exceed this number */
 #define EXP_DIFF_THRESHOLD 1000
 
-static inline int16_t fix15(float a)
+static __inline int16_t fix15(float a)
 {
     int v;
     v = (int)(a * (float)(1 << 15));
@@ -775,7 +775,7 @@ static void output_frame_header(AC3EncodeContext *s, unsigned char *frame)
 }
 
 /* symetric quantization on 'levels' levels */
-static inline int sym_quant(int c, int e, int levels)
+static __inline int sym_quant(int c, int e, int levels)
 {
     int v;
 
@@ -793,7 +793,7 @@ static inline int sym_quant(int c, int e, int levels)
 }
 
 /* asymetric quantization on 2^qbits levels */
-static inline int asym_quant(int c, int e, int qbits)
+static __inline int asym_quant(int c, int e, int qbits)
 {
     int lshift, m, v;
 

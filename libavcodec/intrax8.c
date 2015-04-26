@@ -120,7 +120,7 @@ static void x8_reset_vlc_tables(IntraX8Context * w){
     w->j_orient_vlc=NULL;
 }
 
-static inline void x8_select_ac_table(IntraX8Context * const w , int mode){
+static __inline void x8_select_ac_table(IntraX8Context * const w , int mode){
     MpegEncContext * const s= w->s;
     int table_index;
 
@@ -133,7 +133,7 @@ static inline void x8_select_ac_table(IntraX8Context * const w , int mode){
     assert(w->j_ac_vlc[mode]);
 }
 
-static inline int x8_get_orient_vlc(IntraX8Context * w){
+static __inline int x8_get_orient_vlc(IntraX8Context * w){
     MpegEncContext * const s= w->s;
     int table_index;
 

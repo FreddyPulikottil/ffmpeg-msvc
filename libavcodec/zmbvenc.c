@@ -61,7 +61,7 @@ static int score_tab[256];
  * XXX should be optimized and moved to DSPContext
  * TODO handle out of edge ME
  */
-static inline int block_cmp(uint8_t *src, int stride, uint8_t *src2, int stride2,
+static __inline int block_cmp(uint8_t *src, int stride, uint8_t *src2, int stride2,
                             int bw, int bh, int *xored)
 {
     int sum = 0;

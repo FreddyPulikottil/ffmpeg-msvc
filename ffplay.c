@@ -421,7 +421,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
     return ret;
 }
 
-static inline void fill_rectangle(SDL_Surface *screen,
+static __inline void fill_rectangle(SDL_Surface *screen,
                                   int x, int y, int w, int h, int color)
 {
     SDL_Rect rect;
@@ -837,7 +837,7 @@ static void video_image_display(VideoState *is)
     }
 }
 
-static inline int compute_mod(int a, int b)
+static __inline int compute_mod(int a, int b)
 {
     a = a % b;
     if (a >= 0)

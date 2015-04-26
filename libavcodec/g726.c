@@ -38,7 +38,7 @@ typedef struct Float11 {
     uint8_t mant;   /**< 6bit mantissa */
 } Float11;
 
-static inline Float11* i2f(int i, Float11* f)
+static __inline Float11* i2f(int i, Float11* f)
 {
     f->sign = (i < 0);
     if (f->sign)
@@ -48,7 +48,7 @@ static inline Float11* i2f(int i, Float11* f)
     return f;
 }
 
-static inline int16_t mult(Float11* f1, Float11* f2)
+static __inline int16_t mult(Float11* f1, Float11* f2)
 {
         int res, exp;
 
@@ -58,7 +58,7 @@ static inline int16_t mult(Float11* f1, Float11* f2)
         return (f1->sign ^ f2->sign) ? -res : res;
 }
 
-static inline int sgn(int value)
+static __inline int sgn(int value)
 {
     return (value < 0) ? -1 : 1;
 }
@@ -148,7 +148,7 @@ static const G726Tables G726Tables_pool[] =
 /**
  * Para 4.2.2 page 18: Adaptive quantizer.
  */
-static inline uint8_t quant(G726Context* c, int d)
+static __inline uint8_t quant(G726Context* c, int d)
 {
     int sign, exp, i, dln;
 
@@ -174,7 +174,7 @@ static inline uint8_t quant(G726Context* c, int d)
 /**
  * Para 4.2.3 page 22: Inverse adaptive quantizer.
  */
-static inline int16_t inverse_quant(G726Context* c, int i)
+static __inline int16_t inverse_quant(G726Context* c, int i)
 {
     int dql, dex, dqt;
 

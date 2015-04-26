@@ -128,7 +128,7 @@ typedef struct {
     int64_t sample_count;
 } vorbis_enc_context;
 
-static inline void put_codeword(PutBitContext *pb, vorbis_enc_codebook *cb,
+static __inline void put_codeword(PutBitContext *pb, vorbis_enc_codebook *cb,
                                 int entry)
 {
     assert(entry >= 0);

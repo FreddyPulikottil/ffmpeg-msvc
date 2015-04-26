@@ -57,7 +57,7 @@ int ff_log2(uint32_t value);
  *
  * @return value << offset, if offset>=0; value >> -offset - otherwise
  */
-static inline int bidir_sal(int value, int offset)
+static __inline int bidir_sal(int value, int offset)
 {
     if(offset < 0) return value >> -offset;
     else           return value <<  offset;

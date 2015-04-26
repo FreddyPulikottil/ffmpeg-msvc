@@ -51,7 +51,7 @@ typedef struct {
     int64_t samples;
 } MPCContext;
 
-static inline int64_t bs_get_v(uint8_t **bs)
+static __inline int64_t bs_get_v(uint8_t **bs)
 {
     int64_t v = 0;
     int br = 0;
@@ -102,7 +102,7 @@ static int mpc8_probe(AVProbeData *p)
     return 0;
 }
 
-static inline int64_t gb_get_v(GetBitContext *gb)
+static __inline int64_t gb_get_v(GetBitContext *gb)
 {
     int64_t v = 0;
     int bits = 0;

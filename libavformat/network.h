@@ -46,7 +46,7 @@
 
 int ff_socket_nonblock(int socket, int enable);
 
-static inline int ff_network_init(void)
+static __inline int ff_network_init(void)
 {
 #if HAVE_WINSOCK2_H
     WSADATA wsaData;
@@ -56,7 +56,7 @@ static inline int ff_network_init(void)
     return 1;
 }
 
-static inline void ff_network_close(void)
+static __inline void ff_network_close(void)
 {
 #if HAVE_WINSOCK2_H
     WSACleanup();

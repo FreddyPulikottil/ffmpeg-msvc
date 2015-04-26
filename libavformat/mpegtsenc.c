@@ -114,7 +114,7 @@ static void mpegts_write_section(MpegTSSection *s, uint8_t *buf, int len)
     }
 }
 
-static inline void put16(uint8_t **q_ptr, int val)
+static __inline void put16(uint8_t **q_ptr, int val)
 {
     uint8_t *q;
     q = *q_ptr;

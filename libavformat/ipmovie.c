@@ -43,7 +43,7 @@
 #undef printf
 #define debug_ipmovie printf
 #else
-static inline void debug_ipmovie(const char *format, ...) { }
+static __inline void debug_ipmovie(const char *format, ...) { }
 #endif
 
 #define CHUNK_PREAMBLE_SIZE 4

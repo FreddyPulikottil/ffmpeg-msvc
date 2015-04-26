@@ -38,7 +38,7 @@
 #define Q1 p0_p[ 1*stride]
 #define Q2 p0_p[ 2*stride]
 
-static inline void loop_filter_l2(uint8_t *p0_p,int stride,int alpha, int beta) {
+static __inline void loop_filter_l2(uint8_t *p0_p,int stride,int alpha, int beta) {
     int p0 = P0;
     int q0 = Q0;
 
@@ -58,7 +58,7 @@ static inline void loop_filter_l2(uint8_t *p0_p,int stride,int alpha, int beta) 
     }
 }
 
-static inline void loop_filter_l1(uint8_t *p0_p, int stride, int alpha, int beta, int tc) {
+static __inline void loop_filter_l1(uint8_t *p0_p, int stride, int alpha, int beta, int tc) {
     int p0 = P0;
     int q0 = Q0;
 
@@ -77,7 +77,7 @@ static inline void loop_filter_l1(uint8_t *p0_p, int stride, int alpha, int beta
     }
 }
 
-static inline void loop_filter_c2(uint8_t *p0_p,int stride,int alpha, int beta) {
+static __inline void loop_filter_c2(uint8_t *p0_p,int stride,int alpha, int beta) {
     int p0 = P0;
     int q0 = Q0;
 
@@ -95,7 +95,7 @@ static inline void loop_filter_c2(uint8_t *p0_p,int stride,int alpha, int beta) 
     }
 }
 
-static inline void loop_filter_c1(uint8_t *p0_p,int stride,int alpha, int beta,
+static __inline void loop_filter_c1(uint8_t *p0_p,int stride,int alpha, int beta,
                                   int tc) {
     if(abs(P0-Q0)<alpha && abs(P1-P0)<beta && abs(Q1-Q0)<beta) {
         int delta = av_clip(((Q0-P0)*3+P1-Q1+4)>>3, -tc, tc);

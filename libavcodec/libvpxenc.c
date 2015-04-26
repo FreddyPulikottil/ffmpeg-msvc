@@ -307,7 +307,7 @@ static av_cold int vp8_init(AVCodecContext *avctx)
     return 0;
 }
 
-static inline void cx_pktcpy(struct FrameListData *dst,
+static __inline void cx_pktcpy(struct FrameListData *dst,
                              const struct vpx_codec_cx_pkt *src)
 {
     dst->pts      = src->data.frame.pts;

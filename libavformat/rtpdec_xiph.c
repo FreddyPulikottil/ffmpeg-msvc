@@ -50,7 +50,7 @@ static PayloadContext *xiph_new_context(void)
     return av_mallocz(sizeof(PayloadContext));
 }
 
-static inline void free_fragment_if_needed(PayloadContext * data)
+static __inline void free_fragment_if_needed(PayloadContext * data)
 {
     if (data->fragment) {
         uint8_t* p;

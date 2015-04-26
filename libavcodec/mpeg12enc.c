@@ -310,7 +310,7 @@ static void mpeg1_encode_sequence_header(MpegEncContext *s)
         }
 }
 
-static inline void encode_mb_skip_run(MpegEncContext *s, int run){
+static __inline void encode_mb_skip_run(MpegEncContext *s, int run){
     while (run >= 33) {
         put_bits(&s->pb, 11, 0x008);
         run -= 33;
@@ -429,7 +429,7 @@ void mpeg1_encode_picture_header(MpegEncContext *s, int picture_number)
     ff_mpeg1_encode_slice_header(s);
 }
 
-static inline void put_mb_modes(MpegEncContext *s, int n, int bits,
+static __inline void put_mb_modes(MpegEncContext *s, int n, int bits,
                                 int has_mv, int field_motion)
 {
     put_bits(&s->pb, n, bits);
@@ -812,7 +812,7 @@ void ff_mpeg1_encode_init(MpegEncContext *s)
     s->inter_ac_vlc_last_length= uni_mpeg1_ac_vlc_len;
 }
 
-static inline void encode_dc(MpegEncContext *s, int diff, int component)
+static __inline void encode_dc(MpegEncContext *s, int diff, int component)
 {
   if(((unsigned) (diff+255)) >= 511){
         int index;

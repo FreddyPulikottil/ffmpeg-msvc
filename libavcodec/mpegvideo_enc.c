@@ -131,7 +131,7 @@ void ff_convert_matrix(DSPContext *dsp, int (*qmat)[64], uint16_t (*qmat16)[2][6
     }
 }
 
-static inline void update_qscale(MpegEncContext *s){
+static __inline void update_qscale(MpegEncContext *s){
     s->qscale= (s->lambda*139 + FF_LAMBDA_SCALE*64) >> (FF_LAMBDA_SHIFT + 7);
     s->qscale= av_clip(s->qscale, s->avctx->qmin, s->avctx->qmax);
 
@@ -1385,7 +1385,7 @@ vbv_retry:
     return s->frame_bits/8;
 }
 
-static inline void dct_single_coeff_elimination(MpegEncContext *s, int n, int threshold)
+static __inline void dct_single_coeff_elimination(MpegEncContext *s, int n, int threshold)
 {
     static const char tab[64]=
         {3,2,2,1,1,1,1,1,
@@ -1434,7 +1434,7 @@ static inline void dct_single_coeff_elimination(MpegEncContext *s, int n, int th
     else         s->block_last_index[n]= -1;
 }
 
-static inline void clip_coeffs(MpegEncContext *s, DCTELEM *block, int last_index)
+static __inline void clip_coeffs(MpegEncContext *s, DCTELEM *block, int last_index)
 {
     int i;
     const int maxlevel= s->max_qcoeff;
@@ -1787,7 +1787,7 @@ static av_always_inline void encode_mb(MpegEncContext *s, int motion_x, int moti
     else                                encode_mb_internal(s, motion_x, motion_y, 16, 8);
 }
 
-static inline void copy_context_before_encode(MpegEncContext *d, MpegEncContext *s, int type){
+static __inline void copy_context_before_encode(MpegEncContext *d, MpegEncContext *s, int type){
     int i;
 
     memcpy(d->last_mv, s->last_mv, 2*2*2*sizeof(int)); //FIXME is memcpy faster then a loop?
@@ -1815,7 +1815,7 @@ static inline void copy_context_before_encode(MpegEncContext *d, MpegEncContext 
     d->esc3_level_length= s->esc3_level_length;
 }
 
-static inline void copy_context_after_encode(MpegEncContext *d, MpegEncContext *s, int type){
+static __inline void copy_context_after_encode(MpegEncContext *d, MpegEncContext *s, int type){
     int i;
 
     memcpy(d->mv, s->mv, 2*4*2*sizeof(int));
@@ -1854,7 +1854,7 @@ static inline void copy_context_after_encode(MpegEncContext *d, MpegEncContext *
     d->esc3_level_length= s->esc3_level_length;
 }
 
-static inline void encode_mb_hq(MpegEncContext *s, MpegEncContext *backup, MpegEncContext *best, int type,
+static __inline void encode_mb_hq(MpegEncContext *s, MpegEncContext *backup, MpegEncContext *best, int type,
                            PutBitContext pb[2], PutBitContext pb2[2], PutBitContext tex_pb[2],
                            int *dmin, int *next_block, int motion_x, int motion_y)
 {

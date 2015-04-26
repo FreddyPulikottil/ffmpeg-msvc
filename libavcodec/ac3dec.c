@@ -120,7 +120,7 @@ static const uint8_t ac3_default_coeffs[8][5][2] = {
  * reference: Section 7.3.3 Expansion of Mantissas for Symmetrical Quantization
  *            Tables 7.19 to 7.23
  */
-static inline int
+static __inline int
 symmetric_dequant(int code, int levels)
 {
     return ((code - (levels >> 1)) << 24) / levels;
@@ -623,7 +623,7 @@ static void do_rematrixing(AC3DecodeContext *s)
  * Convert frequency domain coefficients to time-domain audio samples.
  * reference: Section 7.9.4 Transformation Equations
  */
-static inline void do_imdct(AC3DecodeContext *s, int channels)
+static __inline void do_imdct(AC3DecodeContext *s, int channels)
 {
     int ch;
     float add_bias = s->add_bias;

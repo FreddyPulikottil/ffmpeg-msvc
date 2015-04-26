@@ -273,7 +273,7 @@ static int rv40_decode_mb_info(RV34DecContext *r)
 /**
  * weaker deblocking very similar to the one described in 4.4.2 of JVT-A003r1
  */
-static inline void rv40_weak_loop_filter(uint8_t *src, const int step,
+static __inline void rv40_weak_loop_filter(uint8_t *src, const int step,
                                          const int filter_p1, const int filter_q1,
                                          const int alpha, const int beta,
                                          const int lim_p0q0,
@@ -307,7 +307,7 @@ static inline void rv40_weak_loop_filter(uint8_t *src, const int step,
     }
 }
 
-static inline void rv40_adaptive_loop_filter(uint8_t *src, const int step,
+static __inline void rv40_adaptive_loop_filter(uint8_t *src, const int step,
                                              const int stride, const int dmode,
                                              const int lim_q1, const int lim_p1,
                                              const int alpha,

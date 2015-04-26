@@ -56,7 +56,7 @@
 #define COL_SHIFT 20 // 6
 #endif
 
-static inline void idctRowCondDC (DCTELEM * row)
+static __inline void idctRowCondDC (DCTELEM * row)
 {
         int a0, a1, a2, a3, b0, b1, b2, b3;
 #if HAVE_FAST_64BIT
@@ -161,7 +161,7 @@ static inline void idctRowCondDC (DCTELEM * row)
         row[4] = (a3 - b3) >> ROW_SHIFT;
 }
 
-static inline void idctSparseColPut (uint8_t *dest, int line_size,
+static __inline void idctSparseColPut (uint8_t *dest, int line_size,
                                      DCTELEM * col)
 {
         int a0, a1, a2, a3, b0, b1, b2, b3;
@@ -233,7 +233,7 @@ static inline void idctSparseColPut (uint8_t *dest, int line_size,
         dest[0] = cm[(a0 - b0) >> COL_SHIFT];
 }
 
-static inline void idctSparseColAdd (uint8_t *dest, int line_size,
+static __inline void idctSparseColAdd (uint8_t *dest, int line_size,
                                      DCTELEM * col)
 {
         int a0, a1, a2, a3, b0, b1, b2, b3;
@@ -305,7 +305,7 @@ static inline void idctSparseColAdd (uint8_t *dest, int line_size,
         dest[0] = cm[dest[0] + ((a0 - b0) >> COL_SHIFT)];
 }
 
-static inline void idctSparseCol (DCTELEM * col)
+static __inline void idctSparseCol (DCTELEM * col)
 {
         int a0, a1, a2, a3, b0, b1, b2, b3;
 
@@ -409,7 +409,7 @@ void ff_simple_idct(DCTELEM *block)
    and the butterfly must be multiplied by 0.5 * sqrt(2.0) */
 #define C_SHIFT (4+1+12)
 
-static inline void idct4col_put(uint8_t *dest, int line_size, const DCTELEM *col)
+static __inline void idct4col_put(uint8_t *dest, int line_size, const DCTELEM *col)
 {
     int c0, c1, c2, c3, a0, a1, a2, a3;
     const uint8_t *cm = ff_cropTbl + MAX_NEG_CROP;
@@ -489,7 +489,7 @@ void ff_simple_idct248_put(uint8_t *dest, int line_size, DCTELEM *block)
 #define C2 C_FIX(0.2705980501)
 #define C3 C_FIX(0.5)
 #define C_SHIFT (4+1+12)
-static inline void idct4col_add(uint8_t *dest, int line_size, const DCTELEM *col)
+static __inline void idct4col_add(uint8_t *dest, int line_size, const DCTELEM *col)
 {
     int c0, c1, c2, c3, a0, a1, a2, a3;
     const uint8_t *cm = ff_cropTbl + MAX_NEG_CROP;
@@ -517,7 +517,7 @@ static inline void idct4col_add(uint8_t *dest, int line_size, const DCTELEM *col
 #define R2 R_FIX(0.2705980501)
 #define R3 R_FIX(0.5)
 #define R_SHIFT 11
-static inline void idct4row(DCTELEM *row)
+static __inline void idct4row(DCTELEM *row)
 {
     int c0, c1, c2, c3, a0, a1, a2, a3;
     //const uint8_t *cm = ff_cropTbl + MAX_NEG_CROP;

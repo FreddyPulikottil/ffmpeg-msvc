@@ -505,7 +505,7 @@ typedef struct SnowContext{
 #define QEXPSHIFT (7-FRAC_BITS+8) //FIXME try to change this to 0
 static uint8_t qexp[QROOT];
 
-static inline void put_symbol(RangeCoder *c, uint8_t *state, int v, int is_signed){
+static __inline void put_symbol(RangeCoder *c, uint8_t *state, int v, int is_signed){
     int i;
 
     if(v){
@@ -566,7 +566,7 @@ static inline void put_symbol(RangeCoder *c, uint8_t *state, int v, int is_signe
     }
 }
 
-static inline int get_symbol(RangeCoder *c, uint8_t *state, int is_signed){
+static __inline int get_symbol(RangeCoder *c, uint8_t *state, int is_signed){
     if(get_rac(c, state+0))
         return 0;
     else{
@@ -586,7 +586,7 @@ static inline int get_symbol(RangeCoder *c, uint8_t *state, int is_signed){
     }
 }
 
-static inline void put_symbol2(RangeCoder *c, uint8_t *state, int v, int log2){
+static __inline void put_symbol2(RangeCoder *c, uint8_t *state, int v, int log2){
     int i;
     int r= log2>=0 ? 1<<log2 : 1;
 
@@ -606,7 +606,7 @@ static inline void put_symbol2(RangeCoder *c, uint8_t *state, int v, int log2){
     }
 }
 
-static inline int get_symbol2(RangeCoder *c, uint8_t *state, int log2){
+static __inline int get_symbol2(RangeCoder *c, uint8_t *state, int log2){
     int i;
     int r= log2>=0 ? 1<<log2 : 1;
     int v=0;
@@ -626,7 +626,7 @@ static inline int get_symbol2(RangeCoder *c, uint8_t *state, int log2){
     return v;
 }
 
-static inline void unpack_coeffs(SnowContext *s, SubBand *b, SubBand * parent, int orientation){
+static __inline void unpack_coeffs(SnowContext *s, SubBand *b, SubBand * parent, int orientation){
     const int w= b->width;
     const int h= b->height;
     int x,y;
@@ -724,7 +724,7 @@ static inline void unpack_coeffs(SnowContext *s, SubBand *b, SubBand * parent, i
     (xc++)->x= w+1; //end marker
 }
 
-static inline void decode_subband_slice_buffered(SnowContext *s, SubBand *b, slice_buffer * sb, int start_y, int h, int save_state[1]){
+static __inline void decode_subband_slice_buffered(SnowContext *s, SubBand *b, slice_buffer * sb, int start_y, int h, int save_state[1]){
     const int w= b->width;
     int y;
     const int qlog= av_clip(s->qlog + b->qlog, 0, QROOT*16);
@@ -791,7 +791,7 @@ static int alloc_blocks(SnowContext *s){
     return 0;
 }
 
-static inline void copy_rac_state(RangeCoder *d, RangeCoder *s){
+static __inline void copy_rac_state(RangeCoder *d, RangeCoder *s){
     uint8_t *bytestream= d->bytestream;
     uint8_t *bytestream_start= d->bytestream_start;
     *d= *s;
@@ -799,7 +799,7 @@ static inline void copy_rac_state(RangeCoder *d, RangeCoder *s){
     d->bytestream_start= bytestream_start;
 }
 
-static inline void set_blocks(SnowContext *s, int level, int x, int y, int l, int cb, int cr, int mx, int my, int ref, int type){
+static __inline void set_blocks(SnowContext *s, int level, int x, int y, int l, int cb, int cr, int mx, int my, int ref, int type){
     const int w= s->b_width << s->block_max_depth;
     const int rem_depth= s->block_max_depth - level;
     const int index= (x + y*w) << rem_depth;
@@ -823,7 +823,7 @@ static inline void set_blocks(SnowContext *s, int level, int x, int y, int l, in
     }
 }
 
-static inline void init_ref(MotionEstContext *c, uint8_t *src[3], uint8_t *ref[3], uint8_t *ref2[3], int x, int y, int ref_index){
+static __inline void init_ref(MotionEstContext *c, uint8_t *src[3], uint8_t *ref[3], uint8_t *ref2[3], int x, int y, int ref_index){
     const int offset[3]= {
           y*c->  stride + x,
         ((y*c->uvstride + x)>>1),
@@ -837,7 +837,7 @@ static inline void init_ref(MotionEstContext *c, uint8_t *src[3], uint8_t *ref[3
     assert(!ref_index);
 }
 
-static inline void pred_mv(SnowContext *s, int *mx, int *my, int ref,
+static __inline void pred_mv(SnowContext *s, int *mx, int *my, int ref,
                            const BlockNode *left, const BlockNode *top, const BlockNode *tr){
     if(s->ref_frames == 1){
         *mx = mid_pred(left->mx, top->mx, tr->mx);
@@ -2744,7 +2744,7 @@ static int get_dc(SnowContext *s, int mb_x, int mb_y, int plane_index){
     return av_clip(((ab<<LOG2_OBMC_MAX) + aa/2)/aa, 0, 255); //FIXME we should not need clipping
 }
 
-static inline int get_block_bits(SnowContext *s, int x, int y, int w){
+static __inline int get_block_bits(SnowContext *s, int x, int y, int w){
     const int b_stride = s->b_width << s->block_max_depth;
     const int b_height = s->b_height<< s->block_max_depth;
     int index= x + y*b_stride;

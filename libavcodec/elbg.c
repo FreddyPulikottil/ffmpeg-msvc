@@ -55,7 +55,7 @@ typedef struct{
     AVLFG *rand_state;
 } elbg_data;
 
-static inline int distance_limited(int *a, int *b, int dim, int limit)
+static __inline int distance_limited(int *a, int *b, int dim, int limit)
 {
     int i, dist=0;
     for (i=0; i<dim; i++) {
@@ -67,7 +67,7 @@ static inline int distance_limited(int *a, int *b, int dim, int limit)
     return dist;
 }
 
-static inline void vect_division(int *res, int *vect, int div, int dim)
+static __inline void vect_division(int *res, int *vect, int div, int dim)
 {
     int i;
     if (div > 1)

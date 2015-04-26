@@ -224,7 +224,7 @@ static int8_t cavlc_level_tab[7][1<<LEVEL_TAB_BITS][2];
  * gets the predicted number of non-zero coefficients.
  * @param n block index
  */
-static inline int pred_non_zero_count(H264Context *h, int n){
+static __inline int pred_non_zero_count(H264Context *h, int n){
     const int index8= scan8[n];
     const int left= h->non_zero_count_cache[index8 - 1];
     const int top = h->non_zero_count_cache[index8 - 8];
@@ -336,7 +336,7 @@ av_cold void ff_h264_decode_init_vlc(void){
 /**
  *
  */
-static inline int get_level_prefix(GetBitContext *gb){
+static __inline int get_level_prefix(GetBitContext *gb){
     unsigned int buf;
     int log;
 

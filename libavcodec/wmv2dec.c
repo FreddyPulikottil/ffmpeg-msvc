@@ -241,7 +241,7 @@ s->picture_number++; //FIXME ?
     return 0;
 }
 
-static inline int wmv2_decode_motion(Wmv2Context *w, int *mx_ptr, int *my_ptr){
+static __inline int wmv2_decode_motion(Wmv2Context *w, int *mx_ptr, int *my_ptr){
     MpegEncContext * const s= &w->s;
     int ret;
 
@@ -303,7 +303,7 @@ static int16_t *wmv2_pred_motion(Wmv2Context *w, int *px, int *py){
     return mot_val;
 }
 
-static inline int wmv2_decode_inter_block(Wmv2Context *w, DCTELEM *block, int n, int cbp){
+static __inline int wmv2_decode_inter_block(Wmv2Context *w, DCTELEM *block, int n, int cbp){
     MpegEncContext * const s= &w->s;
     static const int sub_cbp_table[3]= {2,3,1};
     int sub_cbp;

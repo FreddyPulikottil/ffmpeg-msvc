@@ -191,14 +191,14 @@ static void tm2_free_codes(TM2Codes *code)
         free_vlc(&code->vlc);
 }
 
-static inline int tm2_get_token(GetBitContext *gb, TM2Codes *code)
+static __inline int tm2_get_token(GetBitContext *gb, TM2Codes *code)
 {
     int val;
     val = get_vlc2(gb, code->vlc.table, code->bits, 1);
     return code->recode[val];
 }
 
-static inline int tm2_read_header(TM2Context *ctx, const uint8_t *buf)
+static __inline int tm2_read_header(TM2Context *ctx, const uint8_t *buf)
 {
     uint32_t magic;
     const uint8_t *obuf;
@@ -324,7 +324,7 @@ static int tm2_read_stream(TM2Context *ctx, const uint8_t *buf, int stream_id) {
     return skip;
 }
 
-static inline int GET_TOK(TM2Context *ctx,int type) {
+static __inline int GET_TOK(TM2Context *ctx,int type) {
     if(ctx->tok_ptrs[type] >= ctx->tok_lens[type]) {
         av_log(ctx->avctx, AV_LOG_ERROR, "Read token from stream %i out of bounds (%i>=%i)\n", type, ctx->tok_ptrs[type], ctx->tok_lens[type]);
         return 0;
@@ -371,7 +371,7 @@ static inline int GET_TOK(TM2Context *ctx,int type) {
     last[1] = (int)CHR[stride + 1];}
 
 /* common operations - add deltas to 4x4 block of luma or 2x2 blocks of chroma */
-static inline void tm2_apply_deltas(TM2Context *ctx, int* Y, int stride, int *deltas, int *last)
+static __inline void tm2_apply_deltas(TM2Context *ctx, int* Y, int stride, int *deltas, int *last)
 {
     int ct, d;
     int i, j;
@@ -389,7 +389,7 @@ static inline void tm2_apply_deltas(TM2Context *ctx, int* Y, int stride, int *de
     }
 }
 
-static inline void tm2_high_chroma(int *data, int stride, int *last, int *CD, int *deltas)
+static __inline void tm2_high_chroma(int *data, int stride, int *last, int *CD, int *deltas)
 {
     int i, j;
     for(j = 0; j < 2; j++){
@@ -402,7 +402,7 @@ static inline void tm2_high_chroma(int *data, int stride, int *last, int *CD, in
     }
 }
 
-static inline void tm2_low_chroma(int *data, int stride, int *clast, int *CD, int *deltas, int bx)
+static __inline void tm2_low_chroma(int *data, int stride, int *clast, int *CD, int *deltas, int bx)
 {
     int t;
     int l;
@@ -421,7 +421,7 @@ static inline void tm2_low_chroma(int *data, int stride, int *clast, int *CD, in
     tm2_high_chroma(data, stride, clast, CD, deltas);
 }
 
-static inline void tm2_hi_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
+static __inline void tm2_hi_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
 {
     int i;
     int deltas[16];
@@ -442,7 +442,7 @@ static inline void tm2_hi_res_block(TM2Context *ctx, AVFrame *pic, int bx, int b
     tm2_apply_deltas(ctx, Y, Ystride, deltas, last);
 }
 
-static inline void tm2_med_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
+static __inline void tm2_med_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
 {
     int i;
     int deltas[16];
@@ -464,7 +464,7 @@ static inline void tm2_med_res_block(TM2Context *ctx, AVFrame *pic, int bx, int 
     tm2_apply_deltas(ctx, Y, Ystride, deltas, last);
 }
 
-static inline void tm2_low_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
+static __inline void tm2_low_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
 {
     int i;
     int t1, t2;
@@ -505,7 +505,7 @@ static inline void tm2_low_res_block(TM2Context *ctx, AVFrame *pic, int bx, int 
     tm2_apply_deltas(ctx, Y, Ystride, deltas, last);
 }
 
-static inline void tm2_null_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
+static __inline void tm2_null_res_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
 {
     int i;
     int ct;
@@ -551,7 +551,7 @@ static inline void tm2_null_res_block(TM2Context *ctx, AVFrame *pic, int bx, int
     tm2_apply_deltas(ctx, Y, Ystride, deltas, last);
 }
 
-static inline void tm2_still_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
+static __inline void tm2_still_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
 {
     int i, j;
     TM2_INIT_POINTERS_2();
@@ -586,7 +586,7 @@ static inline void tm2_still_block(TM2Context *ctx, AVFrame *pic, int bx, int by
     }
 }
 
-static inline void tm2_update_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
+static __inline void tm2_update_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
 {
     int i, j;
     int d;
@@ -624,7 +624,7 @@ static inline void tm2_update_block(TM2Context *ctx, AVFrame *pic, int bx, int b
     }
 }
 
-static inline void tm2_motion_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
+static __inline void tm2_motion_block(TM2Context *ctx, AVFrame *pic, int bx, int by)
 {
     int i, j;
     int mx, my;

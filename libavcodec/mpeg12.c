@@ -48,21 +48,21 @@
 #define MB_PTYPE_VLC_BITS 6
 #define MB_BTYPE_VLC_BITS 6
 
-static inline int mpeg1_decode_block_intra(MpegEncContext *s,
+static __inline int mpeg1_decode_block_intra(MpegEncContext *s,
                               DCTELEM *block,
                               int n);
-static inline int mpeg1_decode_block_inter(MpegEncContext *s,
+static __inline int mpeg1_decode_block_inter(MpegEncContext *s,
                               DCTELEM *block,
                               int n);
-static inline int mpeg1_fast_decode_block_inter(MpegEncContext *s, DCTELEM *block, int n);
-static inline int mpeg2_decode_block_non_intra(MpegEncContext *s,
+static __inline int mpeg1_fast_decode_block_inter(MpegEncContext *s, DCTELEM *block, int n);
+static __inline int mpeg2_decode_block_non_intra(MpegEncContext *s,
                                         DCTELEM *block,
                                         int n);
-static inline int mpeg2_decode_block_intra(MpegEncContext *s,
+static __inline int mpeg2_decode_block_intra(MpegEncContext *s,
                                     DCTELEM *block,
                                     int n);
-static inline int mpeg2_fast_decode_block_non_intra(MpegEncContext *s, DCTELEM *block, int n);
-static inline int mpeg2_fast_decode_block_intra(MpegEncContext *s, DCTELEM *block, int n);
+static __inline int mpeg2_fast_decode_block_non_intra(MpegEncContext *s, DCTELEM *block, int n);
+static __inline int mpeg2_fast_decode_block_intra(MpegEncContext *s, DCTELEM *block, int n);
 static int mpeg_decode_motion(MpegEncContext *s, int fcode, int pred);
 static void exchange_uv(MpegEncContext *s);
 
@@ -180,7 +180,7 @@ av_cold void ff_mpeg12_init_vlcs(void)
     }
 }
 
-static inline int get_dmv(MpegEncContext *s)
+static __inline int get_dmv(MpegEncContext *s)
 {
     if(get_bits1(&s->gb))
         return 1 - (get_bits1(&s->gb) << 1);
@@ -188,7 +188,7 @@ static inline int get_dmv(MpegEncContext *s)
         return 0;
 }
 
-static inline int get_qscale(MpegEncContext *s)
+static __inline int get_qscale(MpegEncContext *s)
 {
     int qscale = get_bits(&s->gb, 5);
     if (s->q_scale_type) {
@@ -614,7 +614,7 @@ static int mpeg_decode_motion(MpegEncContext *s, int fcode, int pred)
     return val;
 }
 
-static inline int mpeg1_decode_block_intra(MpegEncContext *s,
+static __inline int mpeg1_decode_block_intra(MpegEncContext *s,
                                DCTELEM *block,
                                int n)
 {
@@ -694,7 +694,7 @@ int ff_mpeg1_decode_block_intra(MpegEncContext *s,
     return mpeg1_decode_block_intra(s, block, n);
 }
 
-static inline int mpeg1_decode_block_inter(MpegEncContext *s,
+static __inline int mpeg1_decode_block_inter(MpegEncContext *s,
                                DCTELEM *block,
                                int n)
 {
@@ -779,7 +779,7 @@ end:
     return 0;
 }
 
-static inline int mpeg1_fast_decode_block_inter(MpegEncContext *s, DCTELEM *block, int n)
+static __inline int mpeg1_fast_decode_block_inter(MpegEncContext *s, DCTELEM *block, int n)
 {
     int level, i, j, run;
     RLTable *rl = &ff_rl_mpeg1;
@@ -859,7 +859,7 @@ end:
 }
 
 
-static inline int mpeg2_decode_block_non_intra(MpegEncContext *s,
+static __inline int mpeg2_decode_block_non_intra(MpegEncContext *s,
                                DCTELEM *block,
                                int n)
 {
@@ -948,7 +948,7 @@ end:
     return 0;
 }
 
-static inline int mpeg2_fast_decode_block_non_intra(MpegEncContext *s,
+static __inline int mpeg2_fast_decode_block_non_intra(MpegEncContext *s,
                                DCTELEM *block,
                                int n)
 {
@@ -1019,7 +1019,7 @@ end:
 }
 
 
-static inline int mpeg2_decode_block_intra(MpegEncContext *s,
+static __inline int mpeg2_decode_block_intra(MpegEncContext *s,
                                DCTELEM *block,
                                int n)
 {
@@ -1099,7 +1099,7 @@ static inline int mpeg2_decode_block_intra(MpegEncContext *s,
     return 0;
 }
 
-static inline int mpeg2_fast_decode_block_intra(MpegEncContext *s,
+static __inline int mpeg2_fast_decode_block_intra(MpegEncContext *s,
                                DCTELEM *block,
                                int n)
 {

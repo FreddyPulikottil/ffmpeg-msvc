@@ -66,21 +66,21 @@ static uint64_t get_fourcc(ByteIOContext *bc){
 }
 
 #ifdef TRACE
-static inline uint64_t get_v_trace(ByteIOContext *bc, char *file, char *func, int line){
+static __inline uint64_t get_v_trace(ByteIOContext *bc, char *file, char *func, int line){
     uint64_t v= ff_get_v(bc);
 
     av_log(NULL, AV_LOG_DEBUG, "get_v %5"PRId64" / %"PRIX64" in %s %s:%d\n", v, v, file, func, line);
     return v;
 }
 
-static inline int64_t get_s_trace(ByteIOContext *bc, char *file, char *func, int line){
+static __inline int64_t get_s_trace(ByteIOContext *bc, char *file, char *func, int line){
     int64_t v= get_s(bc);
 
     av_log(NULL, AV_LOG_DEBUG, "get_s %5"PRId64" / %"PRIX64" in %s %s:%d\n", v, v, file, func, line);
     return v;
 }
 
-static inline uint64_t get_vb_trace(ByteIOContext *bc, char *file, char *func, int line){
+static __inline uint64_t get_vb_trace(ByteIOContext *bc, char *file, char *func, int line){
     uint64_t v= get_vb(bc);
 
     av_log(NULL, AV_LOG_DEBUG, "get_vb %5"PRId64" / %"PRIX64" in %s %s:%d\n", v, v, file, func, line);

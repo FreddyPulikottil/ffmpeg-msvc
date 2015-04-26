@@ -40,7 +40,7 @@ static int get_VAMvModeVC1(enum MVModes mv_mode)
 }
 
 /** Checks whether the MVTYPEMB bitplane is present */
-static inline int vc1_has_MVTYPEMB_bitplane(VC1Context *v)
+static __inline int vc1_has_MVTYPEMB_bitplane(VC1Context *v)
 {
     if (v->mv_type_is_raw)
         return 0;
@@ -51,7 +51,7 @@ static inline int vc1_has_MVTYPEMB_bitplane(VC1Context *v)
 }
 
 /** Checks whether the SKIPMB bitplane is present */
-static inline int vc1_has_SKIPMB_bitplane(VC1Context *v)
+static __inline int vc1_has_SKIPMB_bitplane(VC1Context *v)
 {
     if (v->skip_is_raw)
         return 0;
@@ -60,7 +60,7 @@ static inline int vc1_has_SKIPMB_bitplane(VC1Context *v)
 }
 
 /** Checks whether the DIRECTMB bitplane is present */
-static inline int vc1_has_DIRECTMB_bitplane(VC1Context *v)
+static __inline int vc1_has_DIRECTMB_bitplane(VC1Context *v)
 {
     if (v->dmb_is_raw)
         return 0;
@@ -68,7 +68,7 @@ static inline int vc1_has_DIRECTMB_bitplane(VC1Context *v)
 }
 
 /** Checks whether the ACPRED bitplane is present */
-static inline int vc1_has_ACPRED_bitplane(VC1Context *v)
+static __inline int vc1_has_ACPRED_bitplane(VC1Context *v)
 {
     if (v->acpred_is_raw)
         return 0;
@@ -78,7 +78,7 @@ static inline int vc1_has_ACPRED_bitplane(VC1Context *v)
 }
 
 /** Check whether the OVERFLAGS bitplane is present */
-static inline int vc1_has_OVERFLAGS_bitplane(VC1Context *v)
+static __inline int vc1_has_OVERFLAGS_bitplane(VC1Context *v)
 {
     if (v->overflg_is_raw)
         return 0;
@@ -102,7 +102,7 @@ static int vc1_get_PTYPE(VC1Context *v)
 }
 
 /** Reconstruct bitstream MVMODE (7.1.1.32) */
-static inline VAMvModeVC1 vc1_get_MVMODE(VC1Context *v)
+static __inline VAMvModeVC1 vc1_get_MVMODE(VC1Context *v)
 {
     if (v->s.pict_type == FF_P_TYPE ||
         (v->s.pict_type == FF_B_TYPE && !v->bi_type))
@@ -111,7 +111,7 @@ static inline VAMvModeVC1 vc1_get_MVMODE(VC1Context *v)
 }
 
 /** Reconstruct bitstream MVMODE2 (7.1.1.33) */
-static inline VAMvModeVC1 vc1_get_MVMODE2(VC1Context *v)
+static __inline VAMvModeVC1 vc1_get_MVMODE2(VC1Context *v)
 {
     if (v->s.pict_type == FF_P_TYPE && v->mv_mode == MV_PMODE_INTENSITY_COMP)
         return get_VAMvModeVC1(v->mv_mode2);
@@ -119,7 +119,7 @@ static inline VAMvModeVC1 vc1_get_MVMODE2(VC1Context *v)
 }
 
 /** Pack FFmpeg bitplanes into a VABitPlaneBuffer element */
-static inline void vc1_pack_bitplanes(uint8_t *bitplane, int n, const uint8_t *ff_bp[3], int x, int y, int stride)
+static __inline void vc1_pack_bitplanes(uint8_t *bitplane, int n, const uint8_t *ff_bp[3], int x, int y, int stride)
 {
     const int bitplane_index = n / 2;
     const int ff_bp_index = y * stride + x;

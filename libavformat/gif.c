@@ -173,7 +173,7 @@ static int gif_image_write_header(ByteIOContext *pb,
 }
 
 /* this is maybe slow, but allows for extensions */
-static inline unsigned char gif_clut_index(uint8_t r, uint8_t g, uint8_t b)
+static __inline unsigned char gif_clut_index(uint8_t r, uint8_t g, uint8_t b)
 {
     return (((r) / 47) % 6) * 6 * 6 + (((g) / 47) % 6) * 6 + (((b) / 47) % 6);
 }

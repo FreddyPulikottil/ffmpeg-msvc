@@ -94,7 +94,7 @@
 #if VQA_DEBUG
 #define vqa_debug printf
 #else
-static inline void vqa_debug(const char *format, ...) { }
+static __inline void vqa_debug(const char *format, ...) { }
 #endif
 
 typedef struct VqaContext {

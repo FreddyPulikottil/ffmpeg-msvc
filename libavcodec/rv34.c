@@ -37,7 +37,7 @@
 
 //#define DEBUG
 
-static inline void ZERO8x2(void* dst, int stride)
+static __inline void ZERO8x2(void* dst, int stride)
 {
     fill_rectangle(dst,                 1, 2, stride, 0, 4);
     fill_rectangle(((uint8_t*)(dst))+4, 1, 2, stride, 0, 4);
@@ -293,7 +293,7 @@ static int rv34_decode_cbp(GetBitContext *gb, RV34VLC *vlc, int table)
 /**
  * Get one coefficient value from the bistream and store it.
  */
-static inline void decode_coeff(DCTELEM *dst, int coef, int esc, GetBitContext *gb, VLC* vlc)
+static __inline void decode_coeff(DCTELEM *dst, int coef, int esc, GetBitContext *gb, VLC* vlc)
 {
     if(coef){
         if(coef == esc){
@@ -313,7 +313,7 @@ static inline void decode_coeff(DCTELEM *dst, int coef, int esc, GetBitContext *
 /**
  * Decode 2x2 subblock of coefficients.
  */
-static inline void decode_subblock(DCTELEM *dst, int code, const int is_block2, GetBitContext *gb, VLC *vlc)
+static __inline void decode_subblock(DCTELEM *dst, int code, const int is_block2, GetBitContext *gb, VLC *vlc)
 {
     int coeffs[4];
 
@@ -343,7 +343,7 @@ static inline void decode_subblock(DCTELEM *dst, int code, const int is_block2, 
  *  o--o
  */
 
-static inline void rv34_decode_block(DCTELEM *dst, GetBitContext *gb, RV34VLC *rvlc, int fc, int sc)
+static __inline void rv34_decode_block(DCTELEM *dst, GetBitContext *gb, RV34VLC *rvlc, int fc, int sc)
 {
     int code, pattern;
 
@@ -373,7 +373,7 @@ static inline void rv34_decode_block(DCTELEM *dst, GetBitContext *gb, RV34VLC *r
  * Dequantize ordinary 4x4 block.
  * @todo optimize
  */
-static inline void rv34_dequant4x4(DCTELEM *block, int Qdc, int Q)
+static __inline void rv34_dequant4x4(DCTELEM *block, int Qdc, int Q)
 {
     int i, j;
 
@@ -387,7 +387,7 @@ static inline void rv34_dequant4x4(DCTELEM *block, int Qdc, int Q)
  * Dequantize 4x4 block of DC values for 16x16 macroblock.
  * @todo optimize
  */
-static inline void rv34_dequant4x4_16x16(DCTELEM *block, int Qdc, int Q)
+static __inline void rv34_dequant4x4_16x16(DCTELEM *block, int Qdc, int Q)
 {
     int i;
 
@@ -420,7 +420,7 @@ int ff_rv34_get_start_offset(GetBitContext *gb, int mb_size)
 /**
  * Select VLC set for decoding from current quantizer, modifier and frame type.
  */
-static inline RV34VLC* choose_vlc_set(int quant, int mod, int type)
+static __inline RV34VLC* choose_vlc_set(int quant, int mod, int type)
 {
     if(mod == 2 && quant < 19) quant += 10;
     else if(mod && quant < 26) quant += 5;
@@ -431,7 +431,7 @@ static inline RV34VLC* choose_vlc_set(int quant, int mod, int type)
 /**
  * Decode quantizer difference and return modified quantizer.
  */
-static inline int rv34_decode_dquant(GetBitContext *gb, int quant)
+static __inline int rv34_decode_dquant(GetBitContext *gb, int quant)
 {
     if(get_bits1(gb))
         return rv34_dquant_tab[get_bits1(gb)][quant];
@@ -530,7 +530,7 @@ static int calc_add_mv(RV34DecContext *r, int dir, int val)
 /**
  * Predict motion vector for B-frame macroblock.
  */
-static inline void rv34_pred_b_vector(int A[2], int B[2], int C[2],
+static __inline void rv34_pred_b_vector(int A[2], int B[2], int C[2],
                                       int A_avail, int B_avail, int C_avail,
                                       int *mx, int *my)
 {
@@ -668,7 +668,7 @@ static const int chroma_coeffs[3] = { 0, 3, 5 };
  * @param qpel_mc a set of functions used to perform luma motion compensation
  * @param chroma_mc a set of functions used to perform chroma motion compensation
  */
-static inline void rv34_mc(RV34DecContext *r, const int block_type,
+static __inline void rv34_mc(RV34DecContext *r, const int block_type,
                           const int xoff, const int yoff, int mv_off,
                           const int width, const int height, int dir,
                           const int thirdpel,
@@ -945,7 +945,7 @@ static void rv34_add_4x4_block(uint8_t *dst, int stride, DCTELEM block[64], int 
             dst[x + y*stride] = av_clip_uint8(dst[x + y*stride] + block[off + x+y*8]);
 }
 
-static inline int adjust_pred16(int itype, int up, int left)
+static __inline int adjust_pred16(int itype, int up, int left)
 {
     if(!up && !left)
         itype = DC_128_PRED8x8;
@@ -1265,7 +1265,7 @@ static int check_slice_end(RV34DecContext *r, MpegEncContext *s)
     return 0;
 }
 
-static inline int slice_compare(SliceInfo *si1, SliceInfo *si2)
+static __inline int slice_compare(SliceInfo *si1, SliceInfo *si2)
 {
     return si1->type   != si2->type  ||
            si1->start  >= si2->start ||

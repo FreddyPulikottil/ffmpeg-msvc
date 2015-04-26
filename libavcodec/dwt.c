@@ -92,7 +92,7 @@ void ff_slice_buffer_destroy(slice_buffer * buf)
     av_freep(&buf->line);
 }
 
-static inline int mirror(int v, int m){
+static __inline int mirror(int v, int m){
     while((unsigned)v > (unsigned)m){
         v=-v;
         if(v<0) v+= 2*m;
@@ -768,7 +768,7 @@ void ff_spatial_idwt(IDWTELEM *buffer, int width, int height, int stride, int ty
             ff_spatial_idwt_slice(cs, buffer, width, height, stride, type, decomposition_count, y);
 }
 
-static inline int w_c(void *v, uint8_t * pix1, uint8_t * pix2, int line_size, int w, int h, int type){
+static __inline int w_c(void *v, uint8_t * pix1, uint8_t * pix2, int line_size, int w, int h, int type){
     int s, i, j;
     const int dec_count= w==8 ? 3 : 4;
     int tmp[32*32];

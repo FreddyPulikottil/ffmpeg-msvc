@@ -489,7 +489,7 @@ static int mpeg_mux_init(AVFormatContext *ctx)
     return AVERROR(ENOMEM);
 }
 
-static inline void put_timestamp(ByteIOContext *pb, int id, int64_t timestamp)
+static __inline void put_timestamp(ByteIOContext *pb, int id, int64_t timestamp)
 {
     put_byte(pb,
              (id << 4) |

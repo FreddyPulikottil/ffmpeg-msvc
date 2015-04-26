@@ -119,7 +119,7 @@ typedef enum {
     /* 0x02 -> 0xbf reserved */
 } JPEG_MARKER;
 
-static inline void put_marker(PutBitContext *p, int code)
+static __inline void put_marker(PutBitContext *p, int code)
 {
     put_bits(p, 8, 0xff);
     put_bits(p, 8, code);

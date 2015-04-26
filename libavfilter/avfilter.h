@@ -690,7 +690,7 @@ void avfilter_insert_pad(unsigned idx, unsigned *count, size_t padidx_off,
                          AVFilterPad *newpad);
 
 /** Inserts a new input pad for the filter. */
-static inline void avfilter_insert_inpad(AVFilterContext *f, unsigned index,
+static __inline void avfilter_insert_inpad(AVFilterContext *f, unsigned index,
                                          AVFilterPad *p)
 {
     avfilter_insert_pad(index, &f->input_count, offsetof(AVFilterLink, dstpad),
@@ -698,7 +698,7 @@ static inline void avfilter_insert_inpad(AVFilterContext *f, unsigned index,
 }
 
 /** Inserts a new output pad for the filter. */
-static inline void avfilter_insert_outpad(AVFilterContext *f, unsigned index,
+static __inline void avfilter_insert_outpad(AVFilterContext *f, unsigned index,
                                           AVFilterPad *p)
 {
     avfilter_insert_pad(index, &f->output_count, offsetof(AVFilterLink, srcpad),

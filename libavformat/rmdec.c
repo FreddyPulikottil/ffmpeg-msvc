@@ -81,7 +81,7 @@ static const unsigned char sipr_swaps[38][2] = {
 
 const unsigned char ff_sipr_subpk_size[4] = { 29, 19, 37, 20 };
 
-static inline void get_strl(ByteIOContext *pb, char *buf, int buf_size, int len)
+static __inline void get_strl(ByteIOContext *pb, char *buf, int buf_size, int len)
 {
     int i;
     char *q, r;
@@ -677,7 +677,7 @@ static int rm_assemble_video_frame(AVFormatContext *s, ByteIOContext *pb,
     return 1;
 }
 
-static inline void
+static __inline void
 rm_ac3_swap_bytes (AVStream *st, AVPacket *pkt)
 {
     uint8_t *ptr;

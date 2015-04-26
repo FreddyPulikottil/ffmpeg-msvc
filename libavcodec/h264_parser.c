@@ -106,7 +106,7 @@ found:
  * @param buf buffer with field/frame data.
  * @param buf_size size of the buffer.
  */
-static inline int parse_nal_units(AVCodecParserContext *s,
+static __inline int parse_nal_units(AVCodecParserContext *s,
                                   AVCodecContext *avctx,
                                   const uint8_t *buf, int buf_size)
 {

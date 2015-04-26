@@ -405,7 +405,7 @@ typedef struct SectionHeader {
     uint8_t last_sec_num;
 } SectionHeader;
 
-static inline int get8(const uint8_t **pp, const uint8_t *p_end)
+static __inline int get8(const uint8_t **pp, const uint8_t *p_end)
 {
     const uint8_t *p;
     int c;
@@ -418,7 +418,7 @@ static inline int get8(const uint8_t **pp, const uint8_t *p_end)
     return c;
 }
 
-static inline int get16(const uint8_t **pp, const uint8_t *p_end)
+static __inline int get16(const uint8_t **pp, const uint8_t *p_end)
 {
     const uint8_t *p;
     int c;

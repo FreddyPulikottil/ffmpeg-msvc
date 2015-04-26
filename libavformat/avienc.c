@@ -57,7 +57,7 @@ typedef struct  {
     AVIIndex indexes;
 } AVIStream ;
 
-static inline AVIIentry* avi_get_ientry(AVIIndex* idx, int ent_id)
+static __inline AVIIentry* avi_get_ientry(AVIIndex* idx, int ent_id)
 {
     int cl = ent_id / AVI_INDEX_CLUSTER_SIZE;
     int id = ent_id % AVI_INDEX_CLUSTER_SIZE;

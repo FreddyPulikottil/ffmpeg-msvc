@@ -72,7 +72,7 @@ void init_vlc_rl(RLTable *rl);
     }\
 }
 
-static inline int get_rl_index(const RLTable *rl, int last, int run, int level)
+static __inline int get_rl_index(const RLTable *rl, int last, int run, int level)
 {
     int index;
     index = rl->index_run[last][run];

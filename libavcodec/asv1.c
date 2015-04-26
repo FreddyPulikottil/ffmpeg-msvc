@@ -139,35 +139,35 @@ static av_cold void init_vlcs(ASV1Context *a){
 }
 
 //FIXME write a reversed bitstream reader to avoid the double reverse
-static inline int asv2_get_bits(GetBitContext *gb, int n){
+static __inline int asv2_get_bits(GetBitContext *gb, int n){
 #ifdef _MSC_VER
 	uint8_t *av_reverse = get_av_reverse();
 #endif
     return av_reverse[ get_bits(gb, n) << (8-n) ];
 }
 
-static inline void asv2_put_bits(PutBitContext *pb, int n, int v){
+static __inline void asv2_put_bits(PutBitContext *pb, int n, int v){
 #ifdef _MSC_VER
 	uint8_t *av_reverse = get_av_reverse();
 #endif
     put_bits(pb, n, av_reverse[ v << (8-n) ]);
 }
 
-static inline int asv1_get_level(GetBitContext *gb){
+static __inline int asv1_get_level(GetBitContext *gb){
     int code= get_vlc2(gb, level_vlc.table, VLC_BITS, 1);
 
     if(code==3) return get_sbits(gb, 8);
     else        return code - 3;
 }
 
-static inline int asv2_get_level(GetBitContext *gb){
+static __inline int asv2_get_level(GetBitContext *gb){
     int code= get_vlc2(gb, asv2_level_vlc.table, ASV2_LEVEL_VLC_BITS, 1);
 
     if(code==31) return (int8_t)asv2_get_bits(gb, 8);
     else         return code - 31;
 }
 
-static inline void asv1_put_level(PutBitContext *pb, int level){
+static __inline void asv1_put_level(PutBitContext *pb, int level){
     unsigned int index= level + 3;
 
     if(index <= 6) put_bits(pb, level_tab[index][1], level_tab[index][0]);
@@ -177,7 +177,7 @@ static inline void asv1_put_level(PutBitContext *pb, int level){
     }
 }
 
-static inline void asv2_put_level(PutBitContext *pb, int level){
+static __inline void asv2_put_level(PutBitContext *pb, int level){
     unsigned int index= level + 31;
 
     if(index <= 62) put_bits(pb, asv2_level_tab[index][1], asv2_level_tab[index][0]);
@@ -187,7 +187,7 @@ static inline void asv2_put_level(PutBitContext *pb, int level){
     }
 }
 
-static inline int asv1_decode_block(ASV1Context *a, DCTELEM block[64]){
+static __inline int asv1_decode_block(ASV1Context *a, DCTELEM block[64]){
     int i;
 
     block[0]= 8*get_bits(&a->gb, 8);
@@ -212,7 +212,7 @@ static inline int asv1_decode_block(ASV1Context *a, DCTELEM block[64]){
     return 0;
 }
 
-static inline int asv2_decode_block(ASV1Context *a, DCTELEM block[64]){
+static __inline int asv2_decode_block(ASV1Context *a, DCTELEM block[64]){
     int i, count, ccp;
 
     count= asv2_get_bits(&a->gb, 4);
@@ -240,7 +240,7 @@ static inline int asv2_decode_block(ASV1Context *a, DCTELEM block[64]){
     return 0;
 }
 
-static inline void asv1_encode_block(ASV1Context *a, DCTELEM block[64]){
+static __inline void asv1_encode_block(ASV1Context *a, DCTELEM block[64]){
     int i;
     int nc_count=0;
 
@@ -273,7 +273,7 @@ static inline void asv1_encode_block(ASV1Context *a, DCTELEM block[64]){
     put_bits(&a->pb, ccp_tab[16][1], ccp_tab[16][0]);
 }
 
-static inline void asv2_encode_block(ASV1Context *a, DCTELEM block[64]){
+static __inline void asv2_encode_block(ASV1Context *a, DCTELEM block[64]){
     int i;
     int count=0;
 
@@ -312,7 +312,7 @@ static inline void asv2_encode_block(ASV1Context *a, DCTELEM block[64]){
     }
 }
 
-static inline int decode_mb(ASV1Context *a, DCTELEM block[6][64]){
+static __inline int decode_mb(ASV1Context *a, DCTELEM block[6][64]){
     int i;
 
     a->dsp.clear_blocks(block[0]);
@@ -331,7 +331,7 @@ static inline int decode_mb(ASV1Context *a, DCTELEM block[6][64]){
     return 0;
 }
 
-static inline int encode_mb(ASV1Context *a, DCTELEM block[6][64]){
+static __inline int encode_mb(ASV1Context *a, DCTELEM block[6][64]){
     int i;
 
     if(a->pb.buf_end - a->pb.buf - (put_bits_count(&a->pb)>>3) < 30*16*16*3/2/8){
@@ -349,7 +349,7 @@ static inline int encode_mb(ASV1Context *a, DCTELEM block[6][64]){
     return 0;
 }
 
-static inline void idct_put(ASV1Context *a, int mb_x, int mb_y){
+static __inline void idct_put(ASV1Context *a, int mb_x, int mb_y){
     DCTELEM (*block)[64]= a->block;
     int linesize= a->picture.linesize[0];
 
@@ -368,7 +368,7 @@ static inline void idct_put(ASV1Context *a, int mb_x, int mb_y){
     }
 }
 
-static inline void dct_get(ASV1Context *a, int mb_x, int mb_y){
+static __inline void dct_get(ASV1Context *a, int mb_x, int mb_y){
     DCTELEM (*block)[64]= a->block;
     int linesize= a->picture.linesize[0];
     int i;

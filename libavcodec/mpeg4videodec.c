@@ -108,7 +108,7 @@ void mpeg4_pred_ac(MpegEncContext * s, DCTELEM *block, int n,
  * check if the next stuff is a resync marker or the end.
  * @return 0 if not
  */
-static inline int mpeg4_is_resync(MpegEncContext *s){
+static __inline int mpeg4_is_resync(MpegEncContext *s){
     int bits_count= get_bits_count(&s->gb);
     int v= show_bits(&s->gb, 16);
 
@@ -437,7 +437,7 @@ int mpeg4_decode_video_packet_header(MpegEncContext *s)
  * @param n either 0 for the x component or 1 for y
  * @return the average MV for a GMC MB
  */
-static inline int get_amv(MpegEncContext *s, int n){
+static __inline int get_amv(MpegEncContext *s, int n){
     int x, y, mb_v, sum, dx, dy, shift;
     int len = 1 << (s->f_code + 4);
     const int a= s->sprite_warping_accuracy;
@@ -484,7 +484,7 @@ static inline int get_amv(MpegEncContext *s, int n){
  * @param dir_ptr the prediction direction will be stored here
  * @return the quantized dc
  */
-static inline int mpeg4_decode_dc(MpegEncContext * s, int n, int *dir_ptr)
+static __inline int mpeg4_decode_dc(MpegEncContext * s, int n, int *dir_ptr)
 {
     int level, code;
 
@@ -834,7 +834,7 @@ int ff_mpeg4_decode_partitions(MpegEncContext *s)
  * decodes a block.
  * @return <0 if an error occurred
  */
-static inline int mpeg4_decode_block(MpegEncContext * s, DCTELEM * block,
+static __inline int mpeg4_decode_block(MpegEncContext * s, DCTELEM * block,
                               int n, int coded, int intra, int rvlc)
 {
     int level, i, last, run;

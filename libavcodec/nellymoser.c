@@ -84,7 +84,7 @@ const int16_t ff_nelly_delta_table[32] = {
 2968, 3569, 4314, 5279, 6622, 8154, 10076, 12975
 };
 
-static inline int signed_shift(int i, int shift) {
+static __inline int signed_shift(int i, int shift) {
     if (shift > 0)
         return i << shift;
     return i >> -shift;

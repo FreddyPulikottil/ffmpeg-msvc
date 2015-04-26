@@ -278,7 +278,7 @@ const DVprofile* ff_dv_frame_profile(const DVprofile *sys,
                                   const uint8_t* frame, unsigned buf_size);
 const DVprofile* ff_dv_codec_profile(AVCodecContext* codec);
 
-static inline int dv_write_dif_id(enum dv_section_type t, uint8_t chan_num,
+static __inline int dv_write_dif_id(enum dv_section_type t, uint8_t chan_num,
                                   uint8_t seq_num, uint8_t dif_num,
                                   uint8_t* buf)
 {
@@ -291,7 +291,7 @@ static inline int dv_write_dif_id(enum dv_section_type t, uint8_t chan_num,
 }
 
 
-static inline int dv_write_ssyb_id(uint8_t syb_num, uint8_t fr, uint8_t* buf)
+static __inline int dv_write_ssyb_id(uint8_t syb_num, uint8_t fr, uint8_t* buf)
 {
     if (syb_num == 0 || syb_num == 6) {
         buf[0] = (fr << 7) | /* FR ID 1 - first half of each channel; 0 - second */

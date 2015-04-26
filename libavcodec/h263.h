@@ -115,7 +115,7 @@ int ff_h263_get_gob_height(MpegEncContext *s);
 void ff_h263_encode_motion(MpegEncContext * s, int val, int f_code);
 
 
-static inline int h263_get_motion_length(MpegEncContext * s, int val, int f_code){
+static __inline int h263_get_motion_length(MpegEncContext * s, int val, int f_code){
     int l, bit_size, code;
 
     if (val == 0) {
@@ -132,7 +132,7 @@ static inline int h263_get_motion_length(MpegEncContext * s, int val, int f_code
     }
 }
 
-static inline void ff_h263_encode_motion_vector(MpegEncContext * s, int x, int y, int f_code){
+static __inline void ff_h263_encode_motion_vector(MpegEncContext * s, int x, int y, int f_code){
     if(s->flags2 & CODEC_FLAG2_NO_OUTPUT){
         skip_put_bits(&s->pb,
             h263_get_motion_length(s, x, f_code)
@@ -143,7 +143,7 @@ static inline void ff_h263_encode_motion_vector(MpegEncContext * s, int x, int y
     }
 }
 
-static inline int get_p_cbp(MpegEncContext * s,
+static __inline int get_p_cbp(MpegEncContext * s,
                       DCTELEM block[6][64],
                       int motion_x, int motion_y){
     int cbp, i;
@@ -200,7 +200,7 @@ static inline int get_p_cbp(MpegEncContext * s,
     return cbp;
 }
 
-static inline int get_b_cbp(MpegEncContext * s, DCTELEM block[6][64],
+static __inline int get_b_cbp(MpegEncContext * s, DCTELEM block[6][64],
                             int motion_x, int motion_y, int mb_type){
     int cbp=0, i;
 
@@ -242,7 +242,7 @@ static inline int get_b_cbp(MpegEncContext * s, DCTELEM block[6][64],
     return cbp;
 }
 
-static inline void memsetw(short *tab, int val, int n)
+static __inline void memsetw(short *tab, int val, int n)
 {
     int i;
     for(i=0;i<n;i++)

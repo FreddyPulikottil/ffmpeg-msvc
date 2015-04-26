@@ -156,7 +156,7 @@ static int qsort_comparison_function_int16(const void *a, const void *b)
     return *(const int16_t *)a - *(const int16_t *)b;
 }
 
-static inline int in_table_int16(const int16_t *table, int last_el, int16_t needle)
+static __inline int in_table_int16(const int16_t *table, int last_el, int16_t needle)
 {
     int i;
     for (i = 0; i <= last_el; i++)

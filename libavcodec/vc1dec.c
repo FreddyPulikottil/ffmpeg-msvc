@@ -433,7 +433,7 @@ static void vc1_mc_4mv_luma(VC1Context *v, int n)
     }
 }
 
-static inline int median4(int a, int b, int c, int d)
+static __inline int median4(int a, int b, int c, int d)
 {
     if(a < b) {
         if(c < d) return (FFMIN(b, d) + FFMAX(a, c)) / 2;
@@ -674,7 +674,7 @@ static void vc1_mc_4mv_chroma(VC1Context *v)
 
 /** Predict and set motion vector
  */
-static inline void vc1_pred_mv(MpegEncContext *s, int n, int dmv_x, int dmv_y, int mv1, int r_x, int r_y, uint8_t* is_intra)
+static __inline void vc1_pred_mv(MpegEncContext *s, int n, int dmv_x, int dmv_y, int mv1, int r_x, int r_y, uint8_t* is_intra)
 {
     int xy, wrap, off = 0;
     int16_t *A, *B, *C;
@@ -944,7 +944,7 @@ static av_always_inline int scale_mv(int value, int bfrac, int inv, int qs)
 
 /** Reconstruct motion vector for B-frame and do motion compensation
  */
-static inline void vc1_b_mc(VC1Context *v, int dmv_x[2], int dmv_y[2], int direct, int mode)
+static __inline void vc1_b_mc(VC1Context *v, int dmv_x[2], int dmv_y[2], int direct, int mode)
 {
     if(v->use_ic) {
         v->mv_mode2 = v->mv_mode;
@@ -968,7 +968,7 @@ static inline void vc1_b_mc(VC1Context *v, int dmv_x[2], int dmv_y[2], int direc
     if(v->use_ic) v->mv_mode = v->mv_mode2;
 }
 
-static inline void vc1_pred_b_mv(VC1Context *v, int dmv_x[2], int dmv_y[2], int direct, int mvtype)
+static __inline void vc1_pred_b_mv(VC1Context *v, int dmv_x[2], int dmv_y[2], int direct, int mvtype)
 {
     MpegEncContext *s = &v->s;
     int xy, wrap, off = 0;
@@ -1186,7 +1186,7 @@ static inline void vc1_pred_b_mv(VC1Context *v, int dmv_x[2], int dmv_y[2], int 
  * @param dc_val_ptr Pointer to DC predictor
  * @param dir_ptr Prediction direction for use in AC prediction
  */
-static inline int vc1_i_pred_dc(MpegEncContext *s, int overlap, int pq, int n,
+static __inline int vc1_i_pred_dc(MpegEncContext *s, int overlap, int pq, int n,
                               int16_t **dc_val_ptr, int *dir_ptr)
 {
     int a, b, c, wrap, pred, scale;
@@ -1250,7 +1250,7 @@ static inline int vc1_i_pred_dc(MpegEncContext *s, int overlap, int pq, int n,
  * @param dc_val_ptr Pointer to DC predictor
  * @param dir_ptr Prediction direction for use in AC prediction
  */
-static inline int vc1_pred_dc(MpegEncContext *s, int overlap, int pq, int n,
+static __inline int vc1_pred_dc(MpegEncContext *s, int overlap, int pq, int n,
                               int a_avail, int c_avail,
                               int16_t **dc_val_ptr, int *dir_ptr)
 {
@@ -1321,7 +1321,7 @@ static inline int vc1_pred_dc(MpegEncContext *s, int overlap, int pq, int n,
  * @{
  */
 
-static inline int vc1_coded_block_pred(MpegEncContext * s, int n, uint8_t **coded_block_ptr)
+static __inline int vc1_coded_block_pred(MpegEncContext * s, int n, uint8_t **coded_block_ptr)
 {
     int xy, wrap, pred, a, b, c;
 

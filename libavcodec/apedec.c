@@ -227,7 +227,7 @@ static av_cold int ape_decode_close(AVCodecContext * avctx)
 #define BOTTOM_VALUE (TOP_VALUE >> 8)
 
 /** Start the decoder */
-static inline void range_start_decoding(APEContext * ctx)
+static __inline void range_start_decoding(APEContext * ctx)
 {
     ctx->rc.buffer = bytestream_get_byte(&ctx->ptr);
     ctx->rc.low    = ctx->rc.buffer >> (8 - EXTRA_BITS);
@@ -235,7 +235,7 @@ static inline void range_start_decoding(APEContext * ctx)
 }
 
 /** Perform normalization */
-static inline void range_dec_normalize(APEContext * ctx)
+static __inline void range_dec_normalize(APEContext * ctx)
 {
     while (ctx->rc.range <= BOTTOM_VALUE) {
         ctx->rc.buffer <<= 8;
@@ -253,7 +253,7 @@ static inline void range_dec_normalize(APEContext * ctx)
  * @param tot_f is the total frequency or (code_value)1<<shift
  * @return the culmulative frequency
  */
-static inline int range_decode_culfreq(APEContext * ctx, int tot_f)
+static __inline int range_decode_culfreq(APEContext * ctx, int tot_f)
 {
     range_dec_normalize(ctx);
     ctx->rc.help = ctx->rc.range / tot_f;
@@ -265,7 +265,7 @@ static inline int range_decode_culfreq(APEContext * ctx, int tot_f)
  * @param ctx decoder context
  * @param shift number of bits to decode
  */
-static inline int range_decode_culshift(APEContext * ctx, int shift)
+static __inline int range_decode_culshift(APEContext * ctx, int shift)
 {
     range_dec_normalize(ctx);
     ctx->rc.help = ctx->rc.range >> shift;
@@ -279,14 +279,14 @@ static inline int range_decode_culshift(APEContext * ctx, int shift)
  * @param sy_f the interval length (frequency of the symbol)
  * @param lt_f the lower end (frequency sum of < symbols)
  */
-static inline void range_decode_update(APEContext * ctx, int sy_f, int lt_f)
+static __inline void range_decode_update(APEContext * ctx, int sy_f, int lt_f)
 {
     ctx->rc.low  -= ctx->rc.help * lt_f;
     ctx->rc.range = ctx->rc.help * sy_f;
 }
 
 /** Decode n bits (n <= 16) without modelling */
-static inline int range_decode_bits(APEContext * ctx, int n)
+static __inline int range_decode_bits(APEContext * ctx, int n)
 {
     int sym = range_decode_culshift(ctx, n);
     range_decode_update(ctx, 1, sym);
@@ -338,7 +338,7 @@ static const uint16_t counts_diff_3980[21] = {
  * @param counts probability range start position
  * @param counts_diff probability range widths
  */
-static inline int range_get_symbol(APEContext * ctx,
+static __inline int range_get_symbol(APEContext * ctx,
                                    const uint16_t counts[],
                                    const uint16_t counts_diff[])
 {
@@ -362,7 +362,7 @@ static inline int range_get_symbol(APEContext * ctx,
 }
 /** @} */ // group rangecoder
 
-static inline void update_rice(APERice *rice, int x)
+static __inline void update_rice(APERice *rice, int x)
 {
     int lim = rice->k ? (1 << (rice->k + 4)) : 0;
     rice->ksum += ((x + 1) / 2) - ((rice->ksum + 16) >> 5);
@@ -373,7 +373,7 @@ static inline void update_rice(APERice *rice, int x)
         rice->k++;
 }
 
-static inline int ape_decode_value(APEContext * ctx, APERice *rice)
+static __inline int ape_decode_value(APEContext * ctx, APERice *rice)
 {
     int x, overflow;
 
@@ -514,7 +514,7 @@ static void init_predictor_decoder(APEContext * ctx)
 }
 
 /** Get inverse sign of integer (-1 for positive, 1 for negative and 0 for zero) */
-static inline int APESIGN(int32_t x) {
+static __inline int APESIGN(int32_t x) {
     return (x < 0) - (x > 0);
 }
 

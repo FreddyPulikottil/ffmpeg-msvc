@@ -884,7 +884,7 @@ static void decode_mid_side_stereo(ChannelElement *cpe, GetBitContext *gb,
 }
 
 #ifndef VMUL2
-static inline float *VMUL2(float *dst, const float *v, unsigned idx,
+static __inline float *VMUL2(float *dst, const float *v, unsigned idx,
                            const float *scale)
 {
     float s = *scale;
@@ -895,7 +895,7 @@ static inline float *VMUL2(float *dst, const float *v, unsigned idx,
 #endif
 
 #ifndef VMUL4
-static inline float *VMUL4(float *dst, const float *v, unsigned idx,
+static __inline float *VMUL4(float *dst, const float *v, unsigned idx,
                            const float *scale)
 {
     float s = *scale;
@@ -908,7 +908,7 @@ static inline float *VMUL4(float *dst, const float *v, unsigned idx,
 #endif
 
 #ifndef VMUL2S
-static inline float *VMUL2S(float *dst, const float *v, unsigned idx,
+static __inline float *VMUL2S(float *dst, const float *v, unsigned idx,
                             unsigned sign, const float *scale)
 {
     union float754 s0, s1;
@@ -925,7 +925,7 @@ static inline float *VMUL2S(float *dst, const float *v, unsigned idx,
 #endif
 
 #ifndef VMUL4S
-static inline float *VMUL4S(float *dst, const float *v, unsigned idx,
+static __inline float *VMUL4S(float *dst, const float *v, unsigned idx,
                             unsigned sign, const float *scale)
 {
     unsigned nz = idx >> 12;

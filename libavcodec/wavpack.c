@@ -361,7 +361,7 @@ static int wv_get_value(WavpackContext *ctx, GetBitContext *gb, int channel, int
     return sign ? ~ret : ret;
 }
 
-static inline int wv_get_value_integer(WavpackContext *s, uint32_t *crc, int S)
+static __inline int wv_get_value_integer(WavpackContext *s, uint32_t *crc, int S)
 {
     int bit;
 
@@ -456,7 +456,7 @@ static void wv_reset_saved_context(WavpackContext *s)
     s->sc.crc = s->extra_sc.crc = 0xFFFFFFFF;
 }
 
-static inline int wv_unpack_stereo(WavpackContext *s, GetBitContext *gb, void *dst, const int type)
+static __inline int wv_unpack_stereo(WavpackContext *s, GetBitContext *gb, void *dst, const int type)
 {
     int i, j, count = 0;
     int last, t;
@@ -582,7 +582,7 @@ static inline int wv_unpack_stereo(WavpackContext *s, GetBitContext *gb, void *d
     return count * 2;
 }
 
-static inline int wv_unpack_mono(WavpackContext *s, GetBitContext *gb, void *dst, const int type)
+static __inline int wv_unpack_mono(WavpackContext *s, GetBitContext *gb, void *dst, const int type)
 {
     int i, j, count = 0;
     int last, t;

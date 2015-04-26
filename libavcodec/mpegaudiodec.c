@@ -161,7 +161,7 @@ static void ff_compute_band_indexes(MPADecodeContext *s, GranuleDef *g){
 
 /* layer 1 unscaling */
 /* n = number of bits of the mantissa minus 1 */
-static inline int l1_unscale(int n, int mant, int scale_factor)
+static __inline int l1_unscale(int n, int mant, int scale_factor)
 {
     int shift, mod;
     int64_t val;
@@ -175,7 +175,7 @@ static inline int l1_unscale(int n, int mant, int scale_factor)
     return (int)((val + (1LL << (shift - 1))) >> shift);
 }
 
-static inline int l2_unscale_group(int steps, int mant, int scale_factor)
+static __inline int l2_unscale_group(int steps, int mant, int scale_factor)
 {
     int shift, mod, val;
 
@@ -191,7 +191,7 @@ static inline int l2_unscale_group(int steps, int mant, int scale_factor)
 }
 
 /* compute value^(4/3) * 2^(exponent/4). It normalized to FRAC_BITS */
-static inline int l3_unscale(int value, int exponent)
+static __inline int l3_unscale(int value, int exponent)
 {
     unsigned int m;
     int e;
@@ -704,7 +704,7 @@ static void dct32(int32_t *out, int32_t *tab)
 
 #if FRAC_BITS <= 15
 
-static inline int round_sample(int *sum)
+static __inline int round_sample(int *sum)
 {
     int sum1;
     sum1 = (*sum) >> OUT_SHIFT;
@@ -722,7 +722,7 @@ static inline int round_sample(int *sum)
 
 #else
 
-static inline int round_sample(int64_t *sum)
+static __inline int round_sample(int64_t *sum)
 {
     int sum1;
     sum1 = (int)((*sum) >> OUT_SHIFT);
@@ -1383,7 +1383,7 @@ static void exponents_from_scale_factors(MPADecodeContext *s,
 }
 
 /* handle n = 0 too */
-static inline int get_bitsz(GetBitContext *s, int n)
+static __inline int get_bitsz(GetBitContext *s, int n)
 {
     if (n == 0)
         return 0;

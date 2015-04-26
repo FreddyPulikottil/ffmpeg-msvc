@@ -724,7 +724,7 @@ int ff_alloc_picture(MpegEncContext *s, Picture *pic, int shared);
 extern const enum PixelFormat ff_pixfmt_list_420[];
 extern const enum PixelFormat ff_hwaccel_pixfmt_list_420[];
 
-static inline void ff_update_block_index(MpegEncContext *s){
+static __inline void ff_update_block_index(MpegEncContext *s){
     const int block_size= 8>>s->avctx->lowres;
 
     s->block_index[0]+=2;
@@ -738,7 +738,7 @@ static inline void ff_update_block_index(MpegEncContext *s){
     s->dest[2]+= block_size;
 }
 
-static inline int get_bits_diff(MpegEncContext *s){
+static __inline int get_bits_diff(MpegEncContext *s){
     const int bits= put_bits_count(&s->pb);
     const int last= s->last_bits;
 
@@ -747,7 +747,7 @@ static inline int get_bits_diff(MpegEncContext *s){
     return bits - last;
 }
 
-static inline int ff_h263_round_chroma(int x){
+static __inline int ff_h263_round_chroma(int x){
     static const uint8_t h263_chroma_roundtab[16] = {
     //  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
         0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1,
