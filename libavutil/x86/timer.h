@@ -31,7 +31,7 @@
 static inline uint64_t read_time(void)
 {
     uint32_t a, d;
-    __asm__ volatile("rdtsc" : "=a" (a), "=d" (d));
+	//__asm__ volatile("rdtsc" : "=a" (a), "=d" (d));//commenting out to get to compile will come back to see why it is broken later
     return ((uint64_t)d << 32) + a;
 }
 

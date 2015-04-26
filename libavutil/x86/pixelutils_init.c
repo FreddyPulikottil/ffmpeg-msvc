@@ -19,7 +19,7 @@
 #include "config.h"
 
 #include "pixelutils.h"
-#include "cpu.h"
+#include "cpu_x86.h"
 
 int ff_pixelutils_sad_8x8_mmx(const uint8_t *src1, ptrdiff_t stride1,
                               const uint8_t *src2, ptrdiff_t stride2);

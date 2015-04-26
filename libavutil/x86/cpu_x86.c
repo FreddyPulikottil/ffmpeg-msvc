@@ -24,7 +24,7 @@
 #include <string.h>
 
 #include "libavutil/x86/asm.h"
-#include "libavutil/x86/cpu.h"
+#include "libavutil/x86/cpu_x86.h"
 #include "libavutil/cpu.h"
 #include "libavutil/cpu_internal.h"
 

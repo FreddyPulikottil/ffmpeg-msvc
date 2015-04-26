@@ -21,7 +21,7 @@
  */
 
 #include "libavutil/lls.h"
-#include "libavutil/x86/cpu.h"
+#include "libavutil/x86/cpu_x86.h"
 
 void ff_update_lls_sse2(LLSModel *m, const double *var);
 void ff_update_lls_avx(LLSModel *m, const double *var);
