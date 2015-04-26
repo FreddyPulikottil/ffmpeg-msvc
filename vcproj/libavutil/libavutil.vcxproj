@@ -188,7 +188,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\FJose\Source\Repos\ffmpeg-msvc;C:\Users\FJose\Source\Repos\ffmpeg-msvc\libavutil\configs\Win32;C:\Users\FJose\Source\Repos\ffmpeg-msvc\vcproj\external\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\FJose\Source\Repos\ffmpeg-msvc;C:\Users\FJose\Source\Repos\ffmpeg-msvc\configs\Windows81\Win32;C:\Users\FJose\Source\Repos\ffmpeg-msvc\vcproj\external\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
