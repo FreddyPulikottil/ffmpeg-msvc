@@ -32,20 +32,20 @@ static __inline int atomic_int_get_win32(volatile int *ptr)
 }
 
 #define avpriv_atomic_int_set atomic_int_set_win32
-static inline void atomic_int_set_win32(volatile int *ptr, int val)
+static __inline void atomic_int_set_win32(volatile int *ptr, int val)
 {
     *ptr = val;
     MemoryBarrier();
 }
 
 #define avpriv_atomic_int_add_and_fetch atomic_int_add_and_fetch_win32
-static inline int atomic_int_add_and_fetch_win32(volatile int *ptr, int inc)
+static __inline int atomic_int_add_and_fetch_win32(volatile int *ptr, int inc)
 {
     return inc + InterlockedExchangeAdd(ptr, inc);
 }
 
 #define avpriv_atomic_ptr_cas atomic_ptr_cas_win32
-static inline void *atomic_ptr_cas_win32(void * volatile *ptr,
+static __inline void *atomic_ptr_cas_win32(void * volatile *ptr,
                                          void *oldval, void *newval)
 {
     return InterlockedCompareExchangePointer(ptr, newval, oldval);
